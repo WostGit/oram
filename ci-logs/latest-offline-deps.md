@@ -2358,3 +2358,210 @@ Exit code: 1
 
 - Captured status: 100
 - Finished UTC: 2026-06-03T11:17:51Z
+
+## Commit logs and metadata back to repository
+
+```text
++ git config user.name 'github-actions[bot]'
++ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
++ git pull --rebase origin oram_fpga_public
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
++ git rm -r --ignore-unmatch ci-logs metadata offline-debs
+error: the following files have local modifications:
+    ci-logs/latest-offline-deps.md
+    ci-logs/latest-verilog-ci.md
+    ci-logs/verilog/backend_test_PathORAMBackendTestbench.v.compile.log
+    ci-logs/verilog/encryption_basic_core_ip_bench_verilog_test_bench_top.v.compile.log
+    ci-logs/verilog/encryption_basic_test_AESDWTestBench.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_192.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_256.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.compile.log
+    ci-logs/verilog/encryption_rew_test_AESREWORAMTestbench.v.compile.log
+    ci-logs/verilog/encryption_rew_test_REWAESCoreTestbench.v.compile.log
+    ci-logs/verilog/encryption_rew_test_TinyAESTopTestbench.v.compile.log
+    ci-logs/verilog/frontend_test_testFrontEnd.v.compile.log
+    ci-logs/verilog/frontend_test_testPLB.v.compile.log
+    ci-logs/verilog/frontend_test_testUORAM.v.compile.log
+    ci-logs/verilog/frontend_test_testUORAM_synthBackend.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_keccak.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.compile.log
+    ci-logs/verilog/integrity_test_testIntegrityVerifier.v.compile.log
+    ci-logs/verilog/iverilog-core-parse.log
+    ci-logs/verilog/iverilog-oram-backend-parse.log
+    ci-logs/verilog/stash_test_StashCoreTestbench.v.compile.log
+    ci-logs/verilog/stash_test_StashTestbench.v.compile.log
+    ci-logs/verilog/verilator-core-lint.log
+    ci-logs/verilog/yosys-core-read.log
+    metadata/core-verilog-files.txt
+    metadata/integrity-wrapper-files.txt
+    metadata/oram-backend-files.txt
+    metadata/oram-main-files.txt
+    metadata/verilog-ci-summary.md
+    metadata/verilog-include-args.txt
+    metadata/verilog-include-dirs.txt
+    metadata/verilog-test-results.tsv
+(use --cached to keep the file, or -f to force removal)
++ git add ci-logs metadata
++ git status --short
+M  ci-logs/latest-offline-deps.md
+M  ci-logs/latest-verilog-ci.md
+D  ci-logs/offline-deps-run-26880499793-1.md
+AM ci-logs/offline-deps-run-26881208283-1.md
+M  ci-logs/verilog/backend_test_PathORAMBackendTestbench.v.compile.log
+M  ci-logs/verilog/encryption_basic_core_ip_bench_verilog_test_bench_top.v.compile.log
+M  ci-logs/verilog/encryption_basic_test_AESDWTestBench.v.compile.log
+M  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.compile.log
+A  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.run.log
+M  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_192.v.compile.log
+M  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_256.v.compile.log
+M  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.compile.log
+A  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.run.log
+M  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.compile.log
+A  ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.run.log
+M  ci-logs/verilog/encryption_rew_test_AESREWORAMTestbench.v.compile.log
+M  ci-logs/verilog/encryption_rew_test_REWAESCoreTestbench.v.compile.log
+M  ci-logs/verilog/encryption_rew_test_TinyAESTopTestbench.v.compile.log
+M  ci-logs/verilog/frontend_test_testFrontEnd.v.compile.log
+M  ci-logs/verilog/frontend_test_testPLB.v.compile.log
+M  ci-logs/verilog/frontend_test_testUORAM.v.compile.log
+M  ci-logs/verilog/frontend_test_testUORAM_synthBackend.v.compile.log
+M  ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.compile.log
+A  ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.run.log
+M  ci-logs/verilog/integrity_core_ip_Keccak512_test_keccak.v.compile.log
+M  ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.compile.log
+A  ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.run.log
+M  ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.compile.log
+A  ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.run.log
+M  ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.compile.log
+A  ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.run.log
+M  ci-logs/verilog/integrity_test_testIntegrityVerifier.v.compile.log
+M  ci-logs/verilog/iverilog-core-parse.log
+M  ci-logs/verilog/iverilog-oram-backend-parse.log
+M  ci-logs/verilog/stash_test_StashCoreTestbench.v.compile.log
+M  ci-logs/verilog/stash_test_StashTestbench.v.compile.log
+M  ci-logs/verilog/verilator-core-lint.log
+D  ci-logs/verilog/verilog-ci-run-26880499793-1.md
+A  ci-logs/verilog/verilog-ci-run-26881208283-1.md
+M  ci-logs/verilog/yosys-core-read.log
+M  metadata/core-verilog-files.txt
+A  metadata/encryption-basic-files.txt
+A  metadata/encryption-rew-files.txt
+D  metadata/encryption-wrapper-files.txt
+D  metadata/excluded-verilog-patterns.txt
+M  metadata/integrity-wrapper-files.txt
+A  metadata/keccak-core-files.txt
+M  metadata/oram-backend-files.txt
+M  metadata/oram-main-files.txt
+A  metadata/tiny-aes-core-files.txt
+M  metadata/verilog-ci-summary.md
+M  metadata/verilog-include-args.txt
+M  metadata/verilog-include-dirs.txt
+M  metadata/verilog-test-results.tsv
+A  metadata/yosys-include-args.txt
+ D offline-debs/Packages.gz
+ D offline-debs/SHA256SUMS
+ D offline-debs/package-list.txt
+?? build/
+?? offline-debs/adwaita-icon-theme-full_41.0-1ubuntu1_all.deb
+?? offline-debs/adwaita-icon-theme_41.0-1ubuntu1_all.deb
+?? offline-debs/berkeley-abc_1.01+20211229git48498af+dfsg-2_amd64.deb
+?? offline-debs/binutils-common_2.38-4ubuntu2.12_amd64.deb
+?? offline-debs/binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb
+?? offline-debs/binutils_2.38-4ubuntu2.12_amd64.deb
+?? offline-debs/build-essential_12.9ubuntu3_amd64.deb
+?? offline-debs/bzip2_1.0.8-5build1_amd64.deb
+?? offline-debs/coq_8.15.0+dfsg-2_amd64.deb
+?? offline-debs/coreutils_8.32-4.1ubuntu1.3_amd64.deb
+?? offline-debs/cpp-11_11.4.0-1ubuntu1~22.04.3_amd64.deb
+?? offline-debs/cpp_4%3a11.2.0-1ubuntu1_amd64.deb
+?? offline-debs/install-offline-debs.sh
++ git diff --cached --stat
+ ci-logs/latest-offline-deps.md                     | 2125 ++++++++++-------
+ ci-logs/latest-verilog-ci.md                       | 1870 ++++++++++-----
+ ci-logs/offline-deps-run-26880499793-1.md          | 1801 ---------------
+ ci-logs/offline-deps-run-26881208283-1.md          | 2410 ++++++++++++++++++++
+ ...end_test_PathORAMBackendTestbench.v.compile.log |   80 +-
+ ...e_ip_bench_verilog_test_bench_top.v.compile.log |   88 +-
+ ...ryption_basic_test_AESDWTestBench.v.compile.log |   20 +-
+ ...ore_ip_tiny_aes_test_test_aes_128.v.compile.log |   39 +-
+ ...ew_core_ip_tiny_aes_test_test_aes_128.v.run.log |    1 +
+ ...ore_ip_tiny_aes_test_test_aes_192.v.compile.log |   52 +-
+ ...ore_ip_tiny_aes_test_test_aes_256.v.compile.log |   54 +-
+ ...core_ip_tiny_aes_test_test_endian.v.compile.log |   39 +-
+ ...rew_core_ip_tiny_aes_test_test_endian.v.run.log |    1 +
+ ...p_tiny_aes_test_test_table_lookup.v.compile.log |   39 +-
+ ...re_ip_tiny_aes_test_test_table_lookup.v.run.log |    1 +
+ ...tion_rew_test_AESREWORAMTestbench.v.compile.log |  123 +-
+ ...tion_rew_test_REWAESCoreTestbench.v.compile.log |   13 +-
+ ...tion_rew_test_TinyAESTopTestbench.v.compile.log |   18 +-
+ .../frontend_test_testFrontEnd.v.compile.log       |   90 +-
+ .../verilog/frontend_test_testPLB.v.compile.log    |   91 +-
+ .../verilog/frontend_test_testUORAM.v.compile.log  |   91 +-
+ ...ntend_test_testUORAM_synthBackend.v.compile.log |   90 +-
+ ...e_ip_Keccak512_test_f_permutation.v.compile.log |   13 +-
+ ..._core_ip_Keccak512_test_f_permutation.v.run.log |    1 +
+ ...ity_core_ip_Keccak512_test_keccak.v.compile.log |    9 +-
+ ...ity_core_ip_Keccak512_test_padder.v.compile.log |   15 +-
+ ...tegrity_core_ip_Keccak512_test_padder.v.run.log |    2 +
+ ...ty_core_ip_Keccak512_test_padder1.v.compile.log |   15 +-
+ ...egrity_core_ip_Keccak512_test_padder1.v.run.log |    1 +
+ ...core_ip_Keccak512_test_rconst2in1.v.compile.log |   13 +-
+ ...ity_core_ip_Keccak512_test_rconst2in1.v.run.log |    1 +
+ ...egrity_test_testIntegrityVerifier.v.compile.log |   49 +-
+ ci-logs/verilog/iverilog-core-parse.log            |   77 +-
+ ci-logs/verilog/iverilog-oram-backend-parse.log    |   80 +-
+ .../stash_test_StashCoreTestbench.v.compile.log    |   82 +-
+ .../stash_test_StashTestbench.v.compile.log        |   80 +-
+ ci-logs/verilog/verilator-core-lint.log            |  327 +--
+ ci-logs/verilog/verilog-ci-run-26880499793-1.md    |  859 -------
+ ci-logs/verilog/verilog-ci-run-26881208283-1.md    | 1577 +++++++++++++
+ ci-logs/verilog/yosys-core-read.log                |    8 +-
+ metadata/core-verilog-files.txt                    |   15 -
+ metadata/encryption-basic-files.txt                |    4 +
+ metadata/encryption-rew-files.txt                  |    4 +
+ metadata/encryption-wrapper-files.txt              |   13 -
+ metadata/excluded-verilog-patterns.txt             |    6 -
+ metadata/integrity-wrapper-files.txt               |    2 -
+ metadata/keccak-core-files.txt                     |    6 +
+ metadata/oram-backend-files.txt                    |    4 -
+ metadata/oram-main-files.txt                       |   15 -
+ metadata/tiny-aes-core-files.txt                   |    7 +
+ metadata/verilog-ci-summary.md                     |   63 +-
+ metadata/verilog-include-args.txt                  |    2 +-
+ metadata/verilog-include-dirs.txt                  |    1 +
+ metadata/verilog-test-results.tsv                  |   57 +-
+ metadata/yosys-include-args.txt                    |    1 +
+ 55 files changed, 7899 insertions(+), 4646 deletions(-)
++ git diff --cached --quiet
++ git commit -m 'Add offline dependency and Verilog CI logs for run 26881208283'
+[oram_fpga_public 75769f1] Add offline dependency and Verilog CI logs for run 26881208283
+ 55 files changed, 7899 insertions(+), 4646 deletions(-)
+ delete mode 100644 ci-logs/offline-deps-run-26880499793-1.md
+ create mode 100644 ci-logs/offline-deps-run-26881208283-1.md
+ create mode 100644 ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.run.log
+ create mode 100644 ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.run.log
+ create mode 100644 ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.run.log
+ create mode 100644 ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.run.log
+ create mode 100644 ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.run.log
+ create mode 100644 ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.run.log
+ create mode 100644 ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.run.log
+ delete mode 100644 ci-logs/verilog/verilog-ci-run-26880499793-1.md
+ create mode 100644 ci-logs/verilog/verilog-ci-run-26881208283-1.md
+ create mode 100644 metadata/encryption-basic-files.txt
+ create mode 100644 metadata/encryption-rew-files.txt
+ delete mode 100644 metadata/encryption-wrapper-files.txt
+ delete mode 100644 metadata/excluded-verilog-patterns.txt
+ create mode 100644 metadata/keccak-core-files.txt
+ create mode 100644 metadata/tiny-aes-core-files.txt
+ create mode 100644 metadata/yosys-include-args.txt
++ git push origin HEAD:oram_fpga_public
+To https://github.com/WostGit/oram
+   3340a30..75769f1  HEAD -> oram_fpga_public
+```
+Commit/push exit code: 0
