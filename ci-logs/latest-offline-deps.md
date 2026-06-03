@@ -1,14 +1,14 @@
-# Offline dependency CI log
+# Offline dependency and Verilog CI log
 
 - Repository: WostGit/oram
 - Branch/ref: refs/heads/oram_fpga_public
 - Ref name: oram_fpga_public
-- Commit: 1d39c8154906f7301af714eab2956eccc352117d
+- Commit: b39e478d6f98b755caa30fc83545361671b2159b
 - Workflow: Build offline ORAM dependency bundle
-- Run ID: 26879374468
+- Run ID: 26880254643
 - Run attempt: 1
 - Runner OS: Linux
-- Started UTC: 2026-06-03T10:38:07Z
+- Started UTC: 2026-06-03T10:56:27Z
 
 
 ## Repository state
@@ -17,22 +17,21 @@
 /home/runner/work/oram/oram
 ## oram_fpga_public...origin/oram_fpga_public
  D ci-logs/latest-offline-deps.md
- D ci-logs/offline-deps-run-26879282401-1.md
- D metadata/SHA256SUMS
- D metadata/downloaded-debs.txt
+ D ci-logs/offline-deps-run-26879374468-1.md
+ D metadata/install-offline-debs.sh
  D metadata/oram-testbench-discovery.md
+ D metadata/package-list.raw.txt
  D metadata/package-list.txt
  D offline-debs/Packages.gz
  D offline-debs/SHA256SUMS
  D offline-debs/package-list.txt
-?? ci-logs/offline-deps-run-26879374468-1.md
-?? metadata/top-level-packages.txt
+?? ci-logs/offline-deps-run-26880254643-1.md
 origin	https://github.com/WostGit/oram (fetch)
 origin	https://github.com/WostGit/oram (push)
 oram_fpga_public
-1d39c81 Fix offline dependency bundling workflow
-7f3f278 Update offline dependency commit transcript for run 26879282401
-965d8e7 Add offline dependency CI logs for run 26879282401
+b39e478 Run Verilog CI harness from existing workflow
+e53c2f5 Add agentic Verilog CI harness
+2ab0510 Update offline dependency commit transcript for run 26879374468
 ```
 
 Exit code: 0
@@ -41,17 +40,17 @@ Exit code: 0
 
 ```text
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
-Hit:2 http://azure.archive.ubuntu.com/ubuntu jammy InRelease
 Get:6 https://packages.microsoft.com/repos/azure-cli jammy InRelease [3596 B]
+Hit:2 http://azure.archive.ubuntu.com/ubuntu jammy InRelease
 Get:7 https://packages.microsoft.com/ubuntu/22.04/prod jammy InRelease [3632 B]
 Get:3 http://azure.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
 Get:4 http://azure.archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
 Get:5 http://azure.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
 Get:8 https://dl.google.com/linux/chrome-stable/deb stable InRelease [1825 B]
 Get:9 https://packages.microsoft.com/repos/azure-cli jammy/main amd64 Packages [3325 B]
-Get:10 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main amd64 Packages [383 kB]
-Get:11 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main arm64 Packages [194 kB]
-Get:12 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main armhf Packages [21.8 kB]
+Get:10 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main armhf Packages [21.8 kB]
+Get:11 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main amd64 Packages [383 kB]
+Get:12 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main arm64 Packages [194 kB]
 Get:13 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3538 kB]
 Get:14 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [531 kB]
 Get:15 http://azure.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6040 kB]
@@ -65,7 +64,7 @@ Get:22 http://azure.archive.ubuntu.com/ubuntu jammy-security/restricted Translat
 Get:25 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1202 B]
 Get:23 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1035 kB]
 Get:24 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe Translation-en [229 kB]
-Fetched 25.8 MB in 3s (8566 kB/s)
+Fetched 25.8 MB in 3s (8712 kB/s)
 Reading package lists...
 ```
 
@@ -92,7 +91,7 @@ After this operation, 271 kB of additional disk space will be used.
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 libapt-pkg-perl amd64 0.1.40build2 [72.5 kB]
 Get:3 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 apt-rdepends all 1.3.0-9 [14.5 kB]
-Fetched 87.0 kB in 0s (499 kB/s)
+Fetched 87.0 kB in 0s (500 kB/s)
 Selecting previously unselected package libapt-pkg-perl.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 267993 files and directories currently installed.)
 Preparing to unpack .../libapt-pkg-perl_0.1.40build2_amd64.deb ...
@@ -192,7 +191,7 @@ Get:44 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-n
 Get:45 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 verilator amd64 4.038-1 [4732 kB]
 Get:46 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 xdot all 1.2-2 [28.1 kB]
 Get:47 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 yosys amd64 0.9-2 [2449 kB]
-Fetched 308 MB in 10s (29.5 MB/s)
+Fetched 308 MB in 13s (23.9 MB/s)
 Selecting previously unselected package berkeley-abc.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 268029 files and directories currently installed.)
 Preparing to unpack .../00-berkeley-abc_1.01+20211229git48498af+dfsg-2_amd64.deb ...
@@ -400,6 +399,7 @@ No VM guests are running outdated hypervisor (qemu) binaries on this host.
 /usr/bin/apt-rdepends
 /usr/bin/dpkg-scanpackages
 /usr/bin/iverilog
+/usr/bin/vvp
 /usr/bin/verilator
 /usr/bin/yosys
 ```
@@ -567,51 +567,51 @@ Exit code: 0
 Downloading adwaita-icon-theme
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 adwaita-icon-theme all 41.0-1ubuntu1 [3444 kB]
-Fetched 3444 kB in 0s (13.1 MB/s)
+Fetched 3444 kB in 1s (6736 kB/s)
 Downloading adwaita-icon-theme-full
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 adwaita-icon-theme-full all 41.0-1ubuntu1 [6925 kB]
-Fetched 6925 kB in 1s (9115 kB/s)
+Fetched 6925 kB in 0s (31.5 MB/s)
 Downloading berkeley-abc
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 berkeley-abc amd64 1.01+20211229git48498af+dfsg-2 [4271 kB]
-Fetched 4271 kB in 0s (21.6 MB/s)
+Fetched 4271 kB in 0s (16.0 MB/s)
 Downloading binutils
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils amd64 2.38-4ubuntu2.12 [3184 B]
-Fetched 3184 B in 0s (33.1 kB/s)
+Fetched 3184 B in 0s (34.9 kB/s)
 Downloading binutils-common
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-common amd64 2.38-4ubuntu2.12 [223 kB]
-Fetched 223 kB in 0s (480 kB/s)
+Fetched 223 kB in 0s (520 kB/s)
 Downloading binutils-x86-64-linux-gnu
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.38-4ubuntu2.12 [2324 kB]
-Fetched 2324 kB in 0s (15.8 MB/s)
+Fetched 2324 kB in 0s (20.5 MB/s)
 Downloading build-essential
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 build-essential amd64 12.9ubuntu3 [4744 B]
-Fetched 4744 B in 0s (50.5 kB/s)
+Fetched 4744 B in 0s (44.9 kB/s)
 Downloading bzip2
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 bzip2 amd64 1.0.8-5build1 [34.8 kB]
-Fetched 34.8 kB in 0s (346 kB/s)
+Fetched 34.8 kB in 0s (388 kB/s)
 Downloading coq
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 coq amd64 8.15.0+dfsg-2 [95.4 MB]
-Fetched 95.4 MB in 3s (32.6 MB/s)
+Fetched 95.4 MB in 4s (24.6 MB/s)
 Downloading coreutils
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 coreutils amd64 8.32-4.1ubuntu1.3 [1437 kB]
-Fetched 1437 kB in 0s (10.5 MB/s)
+Fetched 1437 kB in 0s (7262 kB/s)
 Downloading cpp
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 cpp amd64 4:11.2.0-1ubuntu1 [27.7 kB]
-Fetched 27.7 kB in 0s (109 kB/s)
+Fetched 27.7 kB in 0s (118 kB/s)
 Downloading cpp-11
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
 Get:2 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11 amd64 11.4.0-1ubuntu1~22.04.3 [10.0 MB]
-Fetched 10.0 MB in 0s (30.5 MB/s)
+Fetched 10.0 MB in 0s (23.0 MB/s)
 Downloading dbus-session-bus
 E: Can't select candidate version from package dbus-session-bus as it has no candidate
 ```
@@ -739,78 +739,355 @@ Verilator 4.038 2020-07-11 rev v4.036-114-g0cd4a57ad
 Yosys 0.9 (git sha1 1979e0b)
 ```
 
+## Agentic Verilog CI harness
+
+```text
+## Tool versions
+```text
+/usr/bin/iverilog
+Icarus Verilog version 11.0 (stable) ()
+
+Copyright 1998-2020 Stephen Williams
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/usr/bin/vvp
+Icarus Verilog runtime version 11.0 (stable) ()
+
+Copyright 1998-2020 Stephen Williams
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+
+/usr/bin/verilator
+Verilator 4.038 2020-07-11 rev v4.036-114-g0cd4a57ad
+/usr/bin/yosys
+Yosys 0.9 (git sha1 1979e0b)
+```
+
+## Discovery counts
+```text
+All Verilog files: 109
+Core Verilog files: 79
+Testbench files: 23
+
+Testbenches:
+./backend/test/PathORAMBackendTestbench.v
+./encryption/basic/core_ip/bench/verilog/test_bench_top.v
+./encryption/basic/test/AESDWTestBench.v
+./encryption/rew/core_ip/tiny_aes/test/test_aes_128.v
+./encryption/rew/core_ip/tiny_aes/test/test_aes_192.v
+./encryption/rew/core_ip/tiny_aes/test/test_aes_256.v
+./encryption/rew/core_ip/tiny_aes/test/test_endian.v
+./encryption/rew/core_ip/tiny_aes/test/test_table_lookup.v
+./encryption/rew/test/AESREWORAMTestbench.v
+./encryption/rew/test/REWAESCoreTestbench.v
+./encryption/rew/test/TinyAESTopTestbench.v
+./frontend/test/testFrontEnd.v
+./frontend/test/testPLB.v
+./frontend/test/testUORAM.v
+./frontend/test/testUORAM_synthBackend.v
+./integrity/core_ip/Keccak512/test_f_permutation.v
+./integrity/core_ip/Keccak512/test_keccak.v
+./integrity/core_ip/Keccak512/test_padder.v
+./integrity/core_ip/Keccak512/test_padder1.v
+./integrity/core_ip/Keccak512/test_rconst2in1.v
+./integrity/test/testIntegrityVerifier.v
+./stash/test/StashCoreTestbench.v
+./stash/test/StashTestbench.v
+```
+
+## iverilog-parse: core-file-list
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## verilator-lint: core-file-list
+
+```text
+%Error: Invalid option: --timing
+```
+Exit code: 1
+
+## yosys-read: core-file-list
+
+```text
+ERROR: Can't open include file `Const.vh'!
+```
+Exit code: 1
+
+## iverilog-testbench-compile: ./backend/test/PathORAMBackendTestbench.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/basic/core_ip/bench/verilog/test_bench_top.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/basic/test/AESDWTestBench.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/core_ip/tiny_aes/test/test_aes_128.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/core_ip/tiny_aes/test/test_aes_192.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/core_ip/tiny_aes/test/test_aes_256.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/core_ip/tiny_aes/test/test_endian.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/core_ip/tiny_aes/test/test_table_lookup.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/test/AESREWORAMTestbench.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/test/REWAESCoreTestbench.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./encryption/rew/test/TinyAESTopTestbench.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./frontend/test/testFrontEnd.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./frontend/test/testPLB.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./frontend/test/testUORAM.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./frontend/test/testUORAM_synthBackend.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./integrity/core_ip/Keccak512/test_f_permutation.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./integrity/core_ip/Keccak512/test_keccak.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./integrity/core_ip/Keccak512/test_padder.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./integrity/core_ip/Keccak512/test_padder1.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./integrity/core_ip/Keccak512/test_rconst2in1.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./integrity/test/testIntegrityVerifier.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./stash/test/StashCoreTestbench.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## iverilog-testbench-compile: ./stash/test/StashTestbench.v
+
+```text
+./TinyORAMASICWrap.v:57: Include file network_define.v not found
+./TinyORAMASICWrap.v:56: syntax error
+I give up.
+```
+Exit code: 2
+
+## Summary
+# Verilog CI summary
+
+- Finished UTC: 2026-06-03T10:57:40Z
+- Passes: 0
+- Failures: 26
+- Overall status: FAIL
+
+## Result table
+
+```tsv
+phase	target	status	exit_code	log
+iverilog-parse	core-file-list	FAIL	2	ci-logs/verilog/iverilog-core-parse.log
+verilator-lint	core-file-list	FAIL	1	ci-logs/verilog/verilator-core-lint.log
+yosys-read	core-file-list	FAIL	1	ci-logs/verilog/yosys-core-read.log
+iverilog-testbench-compile	./backend/test/PathORAMBackendTestbench.v	FAIL	2	ci-logs/verilog/backend_test_PathORAMBackendTestbench.v.compile.log
+iverilog-testbench-compile	./encryption/basic/core_ip/bench/verilog/test_bench_top.v	FAIL	2	ci-logs/verilog/encryption_basic_core_ip_bench_verilog_test_bench_top.v.compile.log
+iverilog-testbench-compile	./encryption/basic/test/AESDWTestBench.v	FAIL	2	ci-logs/verilog/encryption_basic_test_AESDWTestBench.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_128.v	FAIL	2	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_192.v	FAIL	2	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_192.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_256.v	FAIL	2	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_256.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_endian.v	FAIL	2	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_table_lookup.v	FAIL	2	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.compile.log
+iverilog-testbench-compile	./encryption/rew/test/AESREWORAMTestbench.v	FAIL	2	ci-logs/verilog/encryption_rew_test_AESREWORAMTestbench.v.compile.log
+iverilog-testbench-compile	./encryption/rew/test/REWAESCoreTestbench.v	FAIL	2	ci-logs/verilog/encryption_rew_test_REWAESCoreTestbench.v.compile.log
+iverilog-testbench-compile	./encryption/rew/test/TinyAESTopTestbench.v	FAIL	2	ci-logs/verilog/encryption_rew_test_TinyAESTopTestbench.v.compile.log
+iverilog-testbench-compile	./frontend/test/testFrontEnd.v	FAIL	2	ci-logs/verilog/frontend_test_testFrontEnd.v.compile.log
+iverilog-testbench-compile	./frontend/test/testPLB.v	FAIL	2	ci-logs/verilog/frontend_test_testPLB.v.compile.log
+iverilog-testbench-compile	./frontend/test/testUORAM.v	FAIL	2	ci-logs/verilog/frontend_test_testUORAM.v.compile.log
+iverilog-testbench-compile	./frontend/test/testUORAM_synthBackend.v	FAIL	2	ci-logs/verilog/frontend_test_testUORAM_synthBackend.v.compile.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_f_permutation.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.compile.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_keccak.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_keccak.v.compile.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_padder.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.compile.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_padder1.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.compile.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_rconst2in1.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.compile.log
+iverilog-testbench-compile	./integrity/test/testIntegrityVerifier.v	FAIL	2	ci-logs/verilog/integrity_test_testIntegrityVerifier.v.compile.log
+iverilog-testbench-compile	./stash/test/StashCoreTestbench.v	FAIL	2	ci-logs/verilog/stash_test_StashCoreTestbench.v.compile.log
+iverilog-testbench-compile	./stash/test/StashTestbench.v	FAIL	2	ci-logs/verilog/stash_test_StashTestbench.v.compile.log
+```
+```
+
+Exit code: 1
+
 ## Final status before commit
 
 - Captured status: 100
-- Finished UTC: 2026-06-03T10:39:17Z
-
-## Commit logs and metadata back to repository
-
-```text
-+ git config user.name 'github-actions[bot]'
-+ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-+ git pull --rebase origin oram_fpga_public
-error: cannot pull with rebase: You have unstaged changes.
-error: Please commit or stash them.
-+ git rm -r --ignore-unmatch ci-logs metadata offline-debs
-error: the following files have local modifications:
-    ci-logs/latest-offline-deps.md
-    metadata/oram-testbench-discovery.md
-    metadata/package-list.txt
-(use --cached to keep the file, or -f to force removal)
-+ git add ci-logs metadata
-+ git status --short
-M  ci-logs/latest-offline-deps.md
-D  ci-logs/offline-deps-run-26879282401-1.md
-AM ci-logs/offline-deps-run-26879374468-1.md
-D  metadata/SHA256SUMS
-D  metadata/downloaded-debs.txt
-A  metadata/install-offline-debs.sh
-M  metadata/oram-testbench-discovery.md
-A  metadata/package-list.raw.txt
-M  metadata/package-list.txt
-A  metadata/top-level-packages.txt
- D offline-debs/Packages.gz
- D offline-debs/SHA256SUMS
- D offline-debs/package-list.txt
-?? offline-debs/adwaita-icon-theme-full_41.0-1ubuntu1_all.deb
-?? offline-debs/adwaita-icon-theme_41.0-1ubuntu1_all.deb
-?? offline-debs/berkeley-abc_1.01+20211229git48498af+dfsg-2_amd64.deb
-?? offline-debs/binutils-common_2.38-4ubuntu2.12_amd64.deb
-?? offline-debs/binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb
-?? offline-debs/binutils_2.38-4ubuntu2.12_amd64.deb
-?? offline-debs/build-essential_12.9ubuntu3_amd64.deb
-?? offline-debs/bzip2_1.0.8-5build1_amd64.deb
-?? offline-debs/coq_8.15.0+dfsg-2_amd64.deb
-?? offline-debs/coreutils_8.32-4.1ubuntu1.3_amd64.deb
-?? offline-debs/cpp-11_11.4.0-1ubuntu1~22.04.3_amd64.deb
-?? offline-debs/cpp_4%3a11.2.0-1ubuntu1_amd64.deb
-?? offline-debs/install-offline-debs.sh
-+ git diff --cached --stat
- ci-logs/latest-offline-deps.md            |  650 ++++++--
- ci-logs/offline-deps-run-26879282401-1.md |  287 ----
- ci-logs/offline-deps-run-26879374468-1.md |  761 ++++++++++
- metadata/SHA256SUMS                       |    0
- metadata/downloaded-debs.txt              |    0
- metadata/install-offline-debs.sh          |    4 +
- metadata/oram-testbench-discovery.md      |   74 +
- metadata/package-list.raw.txt             | 2321 +++++++++++++++++++++++++++++
- metadata/package-list.txt                 |   53 +-
- metadata/top-level-packages.txt           |    9 +
- 10 files changed, 3724 insertions(+), 435 deletions(-)
-+ git diff --cached --quiet
-+ git commit -m 'Add offline dependency CI logs for run 26879374468'
-[oram_fpga_public 76b940a] Add offline dependency CI logs for run 26879374468
- 10 files changed, 3724 insertions(+), 435 deletions(-)
- delete mode 100644 ci-logs/offline-deps-run-26879282401-1.md
- create mode 100644 ci-logs/offline-deps-run-26879374468-1.md
- delete mode 100644 metadata/SHA256SUMS
- delete mode 100644 metadata/downloaded-debs.txt
- create mode 100755 metadata/install-offline-debs.sh
- create mode 100644 metadata/package-list.raw.txt
- create mode 100644 metadata/top-level-packages.txt
-+ git push origin HEAD:oram_fpga_public
-To https://github.com/WostGit/oram
-   1d39c81..76b940a  HEAD -> oram_fpga_public
-```
-Commit/push exit code: 0
+- Finished UTC: 2026-06-03T10:57:40Z
