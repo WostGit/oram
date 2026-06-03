@@ -33,7 +33,11 @@ jobs:
           set +e
           set -o pipefail
 
-          mkdir -p ci-logs offline-debs metadata
+          # Start from clean generated directories. Do not commit .deb payloads to git;
+          # they are uploaded as workflow artifacts instead.
+          rm -rf ci-logs metadata offline-debs
+          mkdir -p ci-logs metadata offline-debs
+
           LOG="ci-logs/offline-deps-run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.md"
           LATEST="ci-logs/latest-offline-deps.md"
           STATUS=0
@@ -75,10 +79,6 @@ jobs:
 
           EOF
 
-          run_logged "Repository state" bash -lc 'pwd; git status --short --branch; git remote -v; git rev-parse --abbrev-ref HEAD; git log -1 --oneline'
-
-          run_logged "APT update" bash -lc 'sudo apt-get update'
-
           packages=(
             build-essential
             make
@@ -90,33 +90,80 @@ jobs:
             coq
             ocaml-findlib
           )
+          printf '%s\n' "${packages[@]}" > metadata/top-level-packages.txt
 
-          run_logged "Resolve apt package closure" bash -lc '
+          run_logged "Repository state" bash -lc 'pwd; git status --short --branch; git remote -v; git rev-parse --abbrev-ref HEAD; git log -3 --oneline'
+
+          run_logged "APT update" bash -lc 'sudo apt-get update'
+
+          run_logged "Install resolver and runner tools" bash -lc '
+            sudo apt-get install -y apt-rdepends dpkg-dev apt-utils
+            sudo apt-get install -y build-essential make python3 iverilog verilator yosys gtkwave coq ocaml-findlib
+            command -v apt-rdepends
+            command -v dpkg-scanpackages
+            command -v iverilog
+            command -v verilator
+            command -v yosys
+          '
+
+          run_logged "Resolve real apt dependency closure" bash -lc '
+            set -euo pipefail
             packages=(build-essential make python3 iverilog verilator yosys gtkwave coq ocaml-findlib)
-            apt-cache depends --recurse --no-recommends \
-              --no-suggests --no-conflicts --no-breaks \
-              --no-replaces --no-enhances "${packages[@]}" \
-              | awk '\''/^  Depends: / {print $2} /^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}'\'' \
-              | sed '\''s/<//; s/>//'\'' \
+            : > metadata/package-list.raw.txt
+            for pkg in "${packages[@]}"; do
+              apt-rdepends "$pkg" >> metadata/package-list.raw.txt
+            done
+
+            # Keep only real binary package names. apt-rdepends output contains lines
+            # such as "Depends: <virtual-package>"; those virtual names broke the old
+            # workflow because apt-get download cannot select candidates for them.
+            awk '\''/^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}'\'' metadata/package-list.raw.txt \
+              | sort -u \
+              | while read -r pkg; do
+                  if apt-cache show "$pkg" >/dev/null 2>&1; then
+                    printf "%s\n" "$pkg"
+                  fi
+                done \
               | sort -u > metadata/package-list.txt
+
             printf "%s\n" "${packages[@]}" >> metadata/package-list.txt
             sort -u -o metadata/package-list.txt metadata/package-list.txt
+            test -s metadata/package-list.txt
             wc -l metadata/package-list.txt
-            head -100 metadata/package-list.txt
+            head -120 metadata/package-list.txt
           '
 
           run_logged "Download .deb files" bash -lc '
+            set -euo pipefail
             mkdir -p offline-debs
             cd offline-debs
-            xargs -a ../metadata/package-list.txt -r apt-get download
+            while read -r pkg; do
+              [ -n "$pkg" ] || continue
+              echo "Downloading $pkg"
+              apt-get download "$pkg"
+            done < ../metadata/package-list.txt
             cd ..
+            find offline-debs -maxdepth 1 -type f -name "*.deb" | sort > metadata/downloaded-debs.txt
+            deb_count=$(wc -l < metadata/downloaded-debs.txt)
+            echo "Downloaded deb count: $deb_count"
+            test "$deb_count" -gt 0
             dpkg-scanpackages offline-debs /dev/null | gzip -9c > offline-debs/Packages.gz
             sha256sum offline-debs/*.deb > metadata/SHA256SUMS
             cp metadata/package-list.txt offline-debs/package-list.txt
             cp metadata/SHA256SUMS offline-debs/SHA256SUMS
-            find offline-debs -maxdepth 1 -type f -name "*.deb" | sort > metadata/downloaded-debs.txt
-            wc -l metadata/downloaded-debs.txt
             du -sh offline-debs
+            head -40 metadata/downloaded-debs.txt
+          '
+
+          run_logged "Create offline installer script" bash -lc '
+            cat > offline-debs/install-offline-debs.sh <<'\''EOF'\''
+          #!/usr/bin/env bash
+          set -euo pipefail
+          cd "$(dirname "$0")"
+          sudo apt-get install -y ./$(ls *.deb | tr "\n" " ")
+          EOF
+            chmod +x offline-debs/install-offline-debs.sh
+            cp offline-debs/install-offline-debs.sh metadata/install-offline-debs.sh
           '
 
           {
@@ -153,7 +200,7 @@ jobs:
           cp "$LOG" "$LATEST"
 
           log_line ""
-          log_line "## Commit logs back to repository"
+          log_line "## Commit logs and metadata back to repository"
           log_line ""
           log_line '```text'
           {
@@ -161,11 +208,15 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase origin "${GITHUB_REF_NAME}"
-            git add ci-logs metadata offline-debs/package-list.txt offline-debs/SHA256SUMS offline-debs/Packages.gz
+
+            # Remove stale generated files from older workflow versions, but keep
+            # .deb payloads out of git. They live in the artifact only.
+            git rm -r --ignore-unmatch ci-logs metadata offline-debs
+            git add ci-logs metadata
             git status --short
             git diff --cached --stat
             if git diff --cached --quiet; then
-              echo "No committed-log changes found. Creating heartbeat file."
+              echo "No generated changes found. Creating heartbeat file."
               date -u '+%Y-%m-%dT%H:%M:%SZ' > ci-logs/last-run-heartbeat.txt
               git add ci-logs/last-run-heartbeat.txt
             fi
@@ -176,7 +227,7 @@ jobs:
           log_line '```'
           log_line "Commit/push exit code: ${COMMIT_RC}"
 
-          # Try one more time to include the commit transcript itself in latest log.
+          # Best-effort second commit so latest log includes the commit transcript.
           cp "$LOG" "$LATEST"
           if [ "$COMMIT_RC" -eq 0 ]; then
             git add "$LOG" "$LATEST"
@@ -195,7 +246,7 @@ jobs:
         with:
           name: oram-ubuntu22.04-debs
           path: offline-debs/
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
 
       - name: Upload ORAM discovery metadata and logs
