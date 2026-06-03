@@ -1,4 +1,5 @@
-integrity/old/IntegrityVerifier.v:11: error: 'IntegrityVerifier' has already been declared in this scope.
-integrity/IntegrityVerifier.v:20:      : It was declared here as a module.
-integrity/old/IntegrityVerifier.v:348: Module IntegrityVerifier was already declared here: integrity/IntegrityVerifier.v:20
-
+integrity/core_ip/Keccak512/keccak.v:109: error: Unknown module type: FIFORegister
+2 error(s) during elaboration.
+*** These modules were missing:
+        FIFORegister referenced 1 times.
+***

@@ -1,8 +1,41 @@
-integrity/old/IntegrityVerifier.v:11: error: 'IntegrityVerifier' has already been declared in this scope.
-integrity/IntegrityVerifier.v:20:      : It was declared here as a module.
-integrity/old/IntegrityVerifier.v:348: Module IntegrityVerifier was already declared here: integrity/IntegrityVerifier.v:20
-
-./integrity/test/testIntegrityVerifier.v:1: error: 'testIntegrityVerifier' has already been declared in this scope.
-integrity/test/testIntegrityVerifier.v:1:      : It was declared here as a module.
-./integrity/test/testIntegrityVerifier.v:31: Module testIntegrityVerifier was already declared here: integrity/test/testIntegrityVerifier.v:1
-
+build/verilog-ci/sanitized-testbenches/integrity_test_testIntegrityVerifier.v:27: error: Unknown module type: ClockSource
+integrity/IntegrityVerifier.v:239: error: Unknown module type: Register1b
+integrity/IntegrityVerifier.v:305: error: Unknown module type: FIFORegister
+integrity/IntegrityVerifier.v:317: error: Unknown module type: ShiftRegister
+integrity/IntegrityVerifier.v:332: error: Unknown module type: Register
+integrity/IntegrityVerifier.v:341: error: Unknown module type: Register1b
+integrity/IntegrityVerifier.v:342: error: Unknown module type: Register1b
+integrity/IntegrityVerifier.v:499: error: Unknown module type: aes_cipher_top
+integrity/IntegrityVerifier.v:509: error: Unknown module type: Register
+integrity/IntegrityVerifier.v:517: error: Unknown module type: Register
+integrity/IntegrityVerifier.v:535: error: Unknown module type: CountAlarm
+integrity/IntegrityVerifier.v:540: error: Unknown module type: Mux
+integrity/IntegrityVerifier.v:552: error: Unknown module type: CountAlarm
+integrity/IntegrityVerifier.v:566: error: Unknown module type: CountAlarm
+integrity/IntegrityVerifier.v:586: error: Unknown module type: Mux
+integrity/IntegrityVerifier.v:599: error: Unknown module type: FIFOShiftRound
+integrity/IntegrityVerifier.v:612: error: Unknown module type: Register1b
+integrity/IntegrityVerifier.v:626: error: Unknown module type: SDPRAM
+integrity/Keccak_WF.v:59: error: Unknown module type: FIFOShiftRound
+integrity/Keccak_WF.v:73: error: Unknown module type: Pipeline
+integrity/Keccak_WF.v:75: error: Unknown module type: Pipeline
+integrity/Keccak_WF.v:79: error: Unknown module type: keccak
+integrity/Keccak_WF.v:108: error: Unknown module type: CountAlarm
+integrity/Keccak_WF.v:142: error: Unknown module type: Register
+integrity/Keccak_WF.v:119: error: Unknown module type: Counter
+26 error(s) during elaboration.
+*** These modules were missing:
+        ClockSource referenced 1 times.
+        CountAlarm referenced 4 times.
+        Counter referenced 1 times.
+        FIFORegister referenced 1 times.
+        FIFOShiftRound referenced 2 times.
+        Mux referenced 2 times.
+        Pipeline referenced 2 times.
+        Register referenced 4 times.
+        Register1b referenced 4 times.
+        SDPRAM referenced 1 times.
+        ShiftRegister referenced 1 times.
+        aes_cipher_top referenced 1 times.
+        keccak referenced 1 times.
+***

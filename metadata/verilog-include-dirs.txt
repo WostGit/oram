@@ -3,6 +3,7 @@
 ./integrity/old
 addr
 backend
+build/verilog-ci/compat-include
 encryption
 frontend
 gatelib

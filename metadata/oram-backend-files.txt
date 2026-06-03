@@ -7,8 +7,6 @@ backend/BackendCoreController.v
 backend/PathORAMBackend.v
 backend/PathORAMBackendCore.v
 backend/REWStatCtr.v
-backend/old/CoherenceController.v
-backend/test/PathORAMBackendTestbench.v
 gatelib/Bin2Gray.v
 gatelib/ClockSource.v
 gatelib/CountAlarm.v
@@ -40,5 +38,3 @@ stash/StashCore.v
 stash/StashScanTable.v
 stash/StashToDRAM.v
 stash/StashTop.v
-stash/test/StashCoreTestbench.v
-stash/test/StashTestbench.v

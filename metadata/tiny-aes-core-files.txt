@@ -1,0 +1,7 @@
+encryption/rew/core_ip/tiny_aes/aes_128.v
+encryption/rew/core_ip/tiny_aes/aes_192.v
+encryption/rew/core_ip/tiny_aes/aes_256.v
+encryption/rew/core_ip/tiny_aes/expand_key_128.v
+encryption/rew/core_ip/tiny_aes/final_round.v
+encryption/rew/core_ip/tiny_aes/round.v
+encryption/rew/core_ip/tiny_aes/table.v

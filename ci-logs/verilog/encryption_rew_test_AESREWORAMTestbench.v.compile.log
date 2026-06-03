@@ -1,17 +1,114 @@
-encryption/rew/AESREWORAM.v:30: warning: timescale for AESREWORAM inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
 encryption/rew/AESREWORAM.v:535: warning: implicit definition of wire 'RW_R_Ctr'.
 encryption/rew/AESREWORAM.v:536: warning: implicit definition of wire 'RW_W_Ctr'.
 encryption/rew/AESREWORAM.v:537: warning: implicit definition of wire 'RO_R_Ctr'.
 encryption/rew/AESREWORAM.v:538: warning: implicit definition of wire 'RO_W_Ctr'.
-encryption/rew/test/AESREWORAMTestbench.v:33: Include file BucketDRAMLocal.vh not found
-encryption/rew/GentrySeedGenerator.v:12: warning: timescale for GentrySeedGenerator inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-encryption/rew/REWAESCore.v:40: warning: timescale for REWAESCore inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-encryption/rew/ROISeedGenerator.v:5: warning: timescale for ROISeedGenerator inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-./include/DDR3SDRAMLocal.vh:4: error: 'DDRDQWidth' has already been declared in this scope.
-encryption/rew/test/AESREWORAMTestbench.v:23:      : It was declared here as a parameter.
-encryption/rew/test/AESREWORAMTestbench.v:32: syntax error
-I give up.
+build/verilog-ci/sanitized-testbenches/encryption_rew_test_AESREWORAMTestbench.v:64: error: Unknown module type: ClockSource
+build/verilog-ci/sanitized-testbenches/encryption_rew_test_AESREWORAMTestbench.v:65: error: Unknown module type: ClockSource
+build/verilog-ci/sanitized-testbenches/encryption_rew_test_AESREWORAMTestbench.v:156: warning: parameter AESWidth not found in AESREWORAMTestbench.CUT.
+build/verilog-ci/sanitized-testbenches/encryption_rew_test_AESREWORAMTestbench.v:154: warning: parameter DDRDQWidth not found in AESREWORAMTestbench.CUT.
+build/verilog-ci/sanitized-testbenches/encryption_rew_test_AESREWORAMTestbench.v:153: warning: parameter DDR_nCK_PER_CLK not found in AESREWORAMTestbench.CUT.
+build/verilog-ci/sanitized-testbenches/encryption_rew_test_AESREWORAMTestbench.v:155: warning: parameter IVEntropyWidth not found in AESREWORAMTestbench.CUT.
+encryption/rew/AESREWORAM.v:340: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:354: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:355: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:356: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:357: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:358: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:359: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:360: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:361: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:362: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:363: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:364: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:365: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:367: error: Unknown module type: Register1b
+encryption/rew/AESREWORAM.v:517: error: Unknown module type: REWStatCtr
+encryption/rew/AESREWORAM.v:564: error: Unknown module type: FIFORegister
+encryption/rew/AESREWORAM.v:616: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:622: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:627: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:634: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:639: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:649: error: Unknown module type: Counter
+encryption/rew/AESREWORAM.v:664: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:673: error: Unknown module type: ShiftRegister
+encryption/rew/AESREWORAM.v:686: error: Unknown module type: AddrGen
+encryption/rew/AESREWORAM.v:752: error: Unknown module type: FIFORAM
+encryption/rew/AESREWORAM.v:778: error: Unknown module type: FIFORAM
+encryption/rew/AESREWORAM.v:852: error: Unknown module type: FIFORAM
+encryption/rew/GentrySeedGenerator.v:80: error: Unknown module type: CountAlarm
+encryption/rew/GentrySeedGenerator.v:86: error: Unknown module type: Counter
+encryption/rew/GentrySeedGenerator.v:100: error: Unknown module type: ShiftRegister
+encryption/rew/GentrySeedGenerator.v:115: error: Unknown module type: BktIDGen
+encryption/rew/AESREWORAM.v:883: error: Unknown module type: UDCounter
+encryption/rew/REWAESCore.v:332: error: Unknown module type: FIFORAM
+encryption/rew/REWAESCore.v:355: error: Unknown module type: FIFORAM
+encryption/rew/REWAESCore.v:382: error: Unknown module type: FIFORegister
+encryption/rew/REWAESCore.v:397: error: Unknown module type: Counter
+encryption/rew/REWAESCore.v:406: error: Unknown module type: CountCompare
+encryption/rew/REWAESCore.v:410: error: Unknown module type: CountCompare
+encryption/rew/REWAESCore.v:417: error: Unknown module type: CountAlarm
+encryption/rew/REWAESCore.v:423: error: Unknown module type: Register
+encryption/rew/REWAESCore.v:439: error: Unknown module type: FIFORegister
+encryption/rew/REWAESCore.v:453: error: Unknown module type: Counter
+encryption/rew/REWAESCore.v:462: error: Unknown module type: CountCompare
+encryption/rew/REWAESCore.v:475: error: Unknown module type: aes_128
+encryption/rew/REWAESCore.v:483: error: Unknown module type: ShiftRegister
+encryption/rew/REWAESCore.v:506: error: Unknown module type: CountAlarm
+encryption/rew/REWAESCore.v:513: error: Unknown module type: Counter
+encryption/rew/REWAESCore.v:522: error: Unknown module type: CountCompare
+encryption/rew/REWAESCore.v:526: error: Unknown module type: CountCompare
+encryption/rew/REWAESCore.v:530: error: Unknown module type: Register
+encryption/rew/REWAESCore.v:542: error: Unknown module type: ShiftRegister
+encryption/rew/REWAESCore.v:561: error: Unknown module type: FIFORAM
+encryption/rew/REWAESCore.v:585: error: Unknown module type: FIFORAM
+encryption/rew/AESREWORAM.v:942: error: Unknown module type: FIFOShiftRound
+encryption/rew/AESREWORAM.v:956: error: Unknown module type: FIFORAM
+encryption/rew/AESREWORAM.v:975: error: Unknown module type: FIFOShiftRound
+encryption/rew/AESREWORAM.v:1055: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:1060: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:1070: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:1098: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1105: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1114: error: Unknown module type: CountAlarm
+encryption/rew/AESREWORAM.v:1119: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1149: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1175: error: Unknown module type: FIFORAM
+./include/REWAESLocal.vh:9: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:9: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:2: error: Unable to bind parameter `BktHSize_ValidBits' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:2: error: Unable to bind parameter `BigUWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:6: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:6: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:7: error: Unable to bind parameter `BigLWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:7: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:7: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:15: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:15: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:15: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:15: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:139: error: Unable to bind parameter `AESWidth' in `AESREWORAMTestbench'
+./include/REWAESLocal.vh:139: error: Unable to bind parameter `AESEntropy' in `AESREWORAMTestbench'
+encryption/rew/AESREWORAM.v:1129: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1137: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1162: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1266: error: Unknown module type: Register
+encryption/rew/AESREWORAM.v:1295: error: Unknown module type: FIFORegister
+89 error(s) during elaboration.
+*** These modules were missing:
+        AddrGen referenced 1 times.
+        BktIDGen referenced 1 times.
+        ClockSource referenced 2 times.
+        CountAlarm referenced 12 times.
+        CountCompare referenced 5 times.
+        Counter referenced 5 times.
+        FIFORAM referenced 9 times.
+        FIFORegister referenced 4 times.
+        FIFOShiftRound referenced 2 times.
+        REWStatCtr referenced 1 times.
+        Register referenced 11 times.
+        Register1b referenced 14 times.
+        ShiftRegister referenced 4 times.
+        UDCounter referenced 1 times.
+        aes_128 referenced 1 times.
+***

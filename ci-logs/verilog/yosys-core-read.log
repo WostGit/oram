@@ -1,1 +1,7 @@
-ERROR: Can't open include file `Const.vh'!
+./addr/DRAMInitializer.v:96: Warning: Identifier `\LastBuckerAddr' is implicitly declared.
+./encryption/rew/AESREWORAM.v:535: Warning: Identifier `\RW_R_Ctr' is implicitly declared.
+./encryption/rew/AESREWORAM.v:536: Warning: Identifier `\RW_W_Ctr' is implicitly declared.
+./encryption/rew/AESREWORAM.v:537: Warning: Identifier `\RO_R_Ctr' is implicitly declared.
+./encryption/rew/AESREWORAM.v:538: Warning: Identifier `\RO_W_Ctr' is implicitly declared.
+Warning: Replacing memory \AddrQ with list of registers. See ./frontend/UORAMController.v:276, ./frontend/UORAMController.v:270
+./gatelib/ClockSource.v:93: ERROR: While loops are only allowed in constant functions!

@@ -2358,3 +2358,53 @@ Exit code: 1
 
 - Captured status: 100
 - Finished UTC: 2026-06-03T11:17:51Z
+
+## Commit logs and metadata back to repository
+
+```text
++ git config user.name 'github-actions[bot]'
++ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
++ git pull --rebase origin oram_fpga_public
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
++ git rm -r --ignore-unmatch ci-logs metadata offline-debs
+error: the following files have local modifications:
+    ci-logs/latest-offline-deps.md
+    ci-logs/latest-verilog-ci.md
+    ci-logs/verilog/backend_test_PathORAMBackendTestbench.v.compile.log
+    ci-logs/verilog/encryption_basic_core_ip_bench_verilog_test_bench_top.v.compile.log
+    ci-logs/verilog/encryption_basic_test_AESDWTestBench.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_192.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_256.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.compile.log
+    ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.compile.log
+    ci-logs/verilog/encryption_rew_test_AESREWORAMTestbench.v.compile.log
+    ci-logs/verilog/encryption_rew_test_REWAESCoreTestbench.v.compile.log
+    ci-logs/verilog/encryption_rew_test_TinyAESTopTestbench.v.compile.log
+    ci-logs/verilog/frontend_test_testFrontEnd.v.compile.log
+    ci-logs/verilog/frontend_test_testPLB.v.compile.log
+    ci-logs/verilog/frontend_test_testUORAM.v.compile.log
+    ci-logs/verilog/frontend_test_testUORAM_synthBackend.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_keccak.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.compile.log
+    ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.compile.log
+    ci-logs/verilog/integrity_test_testIntegrityVerifier.v.compile.log
+    ci-logs/verilog/iverilog-core-parse.log
+    ci-logs/verilog/iverilog-oram-backend-parse.log
+    ci-logs/verilog/stash_test_StashCoreTestbench.v.compile.log
+    ci-logs/verilog/stash_test_StashTestbench.v.compile.log
+    ci-logs/verilog/verilator-core-lint.log
+    ci-logs/verilog/yosys-core-read.log
+    metadata/core-verilog-files.txt
+    metadata/integrity-wrapper-files.txt
+    metadata/oram-backend-files.txt
+    metadata/oram-main-files.txt
+    metadata/verilog-ci-summary.md
+    metadata/verilog-include-args.txt
+    metadata/verilog-include-dirs.txt
+    metadata/verilog-test-results.tsv
+(use --cached to keep the file, or -f to force removal)
++ git add ci-logs metadata

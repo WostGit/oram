@@ -1,17 +1,71 @@
-encryption/rew/AESREWORAM.v:30: warning: timescale for AESREWORAM inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-encryption/rew/AESREWORAM.v:535: warning: implicit definition of wire 'RW_R_Ctr'.
-encryption/rew/AESREWORAM.v:536: warning: implicit definition of wire 'RW_W_Ctr'.
-encryption/rew/AESREWORAM.v:537: warning: implicit definition of wire 'RO_R_Ctr'.
-encryption/rew/AESREWORAM.v:538: warning: implicit definition of wire 'RO_W_Ctr'.
-encryption/rew/GentrySeedGenerator.v:12: warning: timescale for GentrySeedGenerator inherited from another file.encryption/rew/test/AESREWORAMTestbench.v:33: 
-encryption/basic/test/AESDWTestBench.vInclude file BucketDRAMLocal.vh not found
-:8: ...: The inherited timescale is here.
-encryption/rew/REWAESCore.v:40: warning: timescale for REWAESCore inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-encryption/rew/ROISeedGenerator.v:5: warning: timescale for ROISeedGenerator inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-./include/DDR3SDRAMLocal.vh:4: error: 'DDRDQWidth' has already been declared in this scope.
-encryption/rew/test/AESREWORAMTestbench.v:23:      : It was declared here as a parameter.
-encryption/rew/test/AESREWORAMTestbench.v:32: syntax error
-I give up.
+./backend/PathORAMBackend.v:356: warning: implicit definition of wire 'ROStartAESValid'.
+./backend/PathORAMBackend.v:357: warning: implicit definition of wire 'ROStartAESReady'.
+./backend/PathORAMBackend.v:366: warning: implicit definition of wire 'PBF_DRAMReadData'.
+./backend/PathORAMBackend.v:367: warning: implicit definition of wire 'PBF_DRAMReadDataValid'.
+./encryption/rew/AESREWORAM.v:535: warning: implicit definition of wire 'RW_R_Ctr'.
+./encryption/rew/AESREWORAM.v:536: warning: implicit definition of wire 'RW_W_Ctr'.
+./encryption/rew/AESREWORAM.v:537: warning: implicit definition of wire 'RO_R_Ctr'.
+./encryption/rew/AESREWORAM.v:538: warning: implicit definition of wire 'RO_W_Ctr'.
+./gatelib/CountAlarm.v:55: warning: timescale for CountAlarm inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/CountCompare.v:75: warning: timescale for CountCompare inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Counter.v:54: warning: timescale for Counter inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Counter.v:116: warning: timescale for MCounter inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/DRAM2RAM.v:70: warning: timescale for DRAM2RAM inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/FIFOControl.v:62: warning: timescale for FIFOControl inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/FIFOLinear.v:55: warning: timescale for FIFOLinear inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/FIFORAM.v:67: warning: timescale for FIFORAM inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/FIFORegControl.v:52: warning: timescale for FIFORegControl inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/FIFORegister.v:53: warning: timescale for FIFORegister inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/FIFOShiftRound.v:76: warning: timescale for FIFOShiftRound inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Gray2Bin.v:47: warning: timescale for Gray2Bin inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/LFSR.v:64: warning: timescale for LFSRPoly inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/LFSR.v:125: warning: timescale for LFSR inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Mux.v:58: warning: timescale for Mux inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/OneHot2Bin.v:51: warning: timescale for OneHot2Bin inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Pipeline.v:50: warning: timescale for Pipeline inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Pipeline.v:116: warning: timescale for PipelinedRegister inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/PrioritySelect.v:64: warning: timescale for PrioritySelect inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/PrioritySelect.v:124: syntax error
+./gatelib/PrioritySelect.v:124: error: Invalid module instantiation
+./gatelib/RAM.v:63: warning: timescale for RAM inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/RAM.v:268: warning: timescale for SDPRAM inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Register.v:46: warning: timescale for Register inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Register.v:113: warning: timescale for Register1b inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/Reverse.v:63: warning: timescale for Reverse inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/ShiftRegister.v:57: warning: timescale for ShiftRegister inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/SynthesizedDRAM.v:70: warning: timescale for SynthesizedDRAM inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/SynthesizedRandDRAM.v:4: warning: timescale for SynthesizedRandDRAM inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./gatelib/UDCounter.v:52: warning: timescale for UDCounter inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./integrity/IntegrityVerifier.v:20: warning: timescale for IntegrityVerifier inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.
+./sram_wrap/RF1DFCMN00128X078D02C064_PWRAP.v:6: Include file define.vh not found
+./integrity/Keccak_WF.v:9: warning: timescale for Keccak_WF inherited from another file.
+./gatelib/ClockSource.v:43: ...: The inherited timescale is here.

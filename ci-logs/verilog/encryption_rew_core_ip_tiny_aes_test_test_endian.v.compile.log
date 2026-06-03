@@ -1,17 +1,22 @@
-encryption/rew/AESREWORAM.v:30: warning: timescale for AESREWORAM inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-encryption/rew/AESREWORAM.v:535: warning: implicit definition of wire 'RW_R_Ctr'.
-encryption/rew/AESREWORAM.v:536: warning: implicit definition of wire 'RW_W_Ctr'.
-encryption/rew/AESREWORAM.v:537: warning: implicit definition of wire 'RO_R_Ctr'.
-encryption/rew/AESREWORAM.v:538: warning: implicit definition of wire 'RO_W_Ctr'.
-encryption/rew/test/AESREWORAMTestbench.v:33: encryption/rew/GentrySeedGenerator.v:12: warning: timescale for Include file BucketDRAMLocal.vh not found
-GentrySeedGenerator inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-encryption/rew/REWAESCore.v:40: warning: timescale for REWAESCore inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-encryption/rew/ROISeedGenerator.v:5: warning: timescale for ROISeedGenerator inherited from another file.
-encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
-./include/DDR3SDRAMLocal.vh:4: error: 'DDRDQWidth' has already been declared in this scope.
-encryption/rew/test/AESREWORAMTestbench.v:23:      : It was declared here as a parameter.
-encryption/rew/test/AESREWORAMTestbench.v:32: syntax error
-I give up.
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module S declared here: encryption/rew/core_ip/tiny_aes/table.v:59
+       :   -- module S4 declared here: encryption/rew/core_ip/tiny_aes/table.v:32
+       :   -- module T declared here: encryption/rew/core_ip/tiny_aes/table.v:45
+       :   -- module aes_128 declared here: encryption/rew/core_ip/tiny_aes/aes_128.v:17
+       :   -- module aes_192 declared here: encryption/rew/core_ip/tiny_aes/aes_192.v:17
+       :   -- module aes_256 declared here: encryption/rew/core_ip/tiny_aes/aes_256.v:17
+       :   -- module expand_key_128 declared here: encryption/rew/core_ip/tiny_aes/expand_key_128.v:17
+       :   -- module expand_key_type_A_192 declared here: encryption/rew/core_ip/tiny_aes/aes_192.v:65
+       :   -- module expand_key_type_A_256 declared here: encryption/rew/core_ip/tiny_aes/aes_256.v:78
+       :   -- module expand_key_type_B_192 declared here: encryption/rew/core_ip/tiny_aes/aes_192.v:102
+       :   -- module expand_key_type_B_256 declared here: encryption/rew/core_ip/tiny_aes/aes_256.v:115
+       :   -- module expand_key_type_C_192 declared here: encryption/rew/core_ip/tiny_aes/aes_192.v:128
+       :   -- module expand_key_type_D_192 declared here: encryption/rew/core_ip/tiny_aes/aes_192.v:163
+       :   -- module final_round declared here: encryption/rew/core_ip/tiny_aes/final_round.v:19
+       :   -- module final_round_sub declared here: encryption/rew/core_ip/tiny_aes/final_round.v:30
+       :   -- module one_round declared here: encryption/rew/core_ip/tiny_aes/round.v:18
+       :   -- module one_round_sub declared here: encryption/rew/core_ip/tiny_aes/round.v:29
+       :   -- module table_lookup declared here: encryption/rew/core_ip/tiny_aes/table.v:17
+       :   -- module xS declared here: encryption/rew/core_ip/tiny_aes/table.v:326

@@ -1,39 +1,46 @@
 # Verilog CI summary
 
-- Finished UTC: 2026-06-03T11:02:36Z
-- Passes: 0
-- Failures: 27
+- Finished UTC: 2026-06-03T11:17:51Z
+- Passes: 14
+- Failures: 20
 - Overall status: FAIL
 
 ## Result table
 
 ```tsv
 phase	target	status	exit_code	log
-iverilog-parse	core-file-list	FAIL	5	ci-logs/verilog/iverilog-core-parse.log
-iverilog-parse	oram-backend-file-list	FAIL	5	ci-logs/verilog/iverilog-oram-backend-parse.log
-verilator-lint	core-file-list	FAIL	126	ci-logs/verilog/verilator-core-lint.log
+iverilog-parse	core-file-list	FAIL	2	ci-logs/verilog/iverilog-core-parse.log
+iverilog-parse	oram-backend-file-list	FAIL	2	ci-logs/verilog/iverilog-oram-backend-parse.log
+verilator-lint	core-file-list	FAIL	1	ci-logs/verilog/verilator-core-lint.log
 yosys-read	core-file-list	FAIL	1	ci-logs/verilog/yosys-core-read.log
-iverilog-testbench-compile	./backend/test/PathORAMBackendTestbench.v	FAIL	5	ci-logs/verilog/backend_test_PathORAMBackendTestbench.v.compile.log
-iverilog-testbench-compile	./encryption/basic/core_ip/bench/verilog/test_bench_top.v	FAIL	3	ci-logs/verilog/encryption_basic_core_ip_bench_verilog_test_bench_top.v.compile.log
-iverilog-testbench-compile	./encryption/basic/test/AESDWTestBench.v	FAIL	3	ci-logs/verilog/encryption_basic_test_AESDWTestBench.v.compile.log
-iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_128.v	FAIL	3	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.compile.log
-iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_192.v	FAIL	3	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_192.v.compile.log
-iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_256.v	FAIL	3	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_256.v.compile.log
-iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_endian.v	FAIL	3	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.compile.log
-iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_table_lookup.v	FAIL	3	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.compile.log
-iverilog-testbench-compile	./encryption/rew/test/AESREWORAMTestbench.v	FAIL	3	ci-logs/verilog/encryption_rew_test_AESREWORAMTestbench.v.compile.log
-iverilog-testbench-compile	./encryption/rew/test/REWAESCoreTestbench.v	FAIL	3	ci-logs/verilog/encryption_rew_test_REWAESCoreTestbench.v.compile.log
-iverilog-testbench-compile	./encryption/rew/test/TinyAESTopTestbench.v	FAIL	3	ci-logs/verilog/encryption_rew_test_TinyAESTopTestbench.v.compile.log
-iverilog-testbench-compile	./frontend/test/testFrontEnd.v	FAIL	5	ci-logs/verilog/frontend_test_testFrontEnd.v.compile.log
-iverilog-testbench-compile	./frontend/test/testPLB.v	FAIL	5	ci-logs/verilog/frontend_test_testPLB.v.compile.log
-iverilog-testbench-compile	./frontend/test/testUORAM.v	FAIL	5	ci-logs/verilog/frontend_test_testUORAM.v.compile.log
-iverilog-testbench-compile	./frontend/test/testUORAM_synthBackend.v	FAIL	5	ci-logs/verilog/frontend_test_testUORAM_synthBackend.v.compile.log
-iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_f_permutation.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.compile.log
+iverilog-testbench-compile	./backend/test/PathORAMBackendTestbench.v	FAIL	2	ci-logs/verilog/backend_test_PathORAMBackendTestbench.v.compile.log
+iverilog-testbench-compile	./encryption/basic/core_ip/bench/verilog/test_bench_top.v	FAIL	2	ci-logs/verilog/encryption_basic_core_ip_bench_verilog_test_bench_top.v.compile.log
+iverilog-testbench-compile	./encryption/basic/test/AESDWTestBench.v	FAIL	1	ci-logs/verilog/encryption_basic_test_AESDWTestBench.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_128.v	PASS	0	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.compile.log
+vvp-testbench-run	./encryption/rew/core_ip/tiny_aes/test/test_aes_128.v	PASS	0	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_128.v.run.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_192.v	FAIL	12	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_192.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_aes_256.v	FAIL	14	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_aes_256.v.compile.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_endian.v	PASS	0	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.compile.log
+vvp-testbench-run	./encryption/rew/core_ip/tiny_aes/test/test_endian.v	PASS	0	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_endian.v.run.log
+iverilog-testbench-compile	./encryption/rew/core_ip/tiny_aes/test/test_table_lookup.v	PASS	0	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.compile.log
+vvp-testbench-run	./encryption/rew/core_ip/tiny_aes/test/test_table_lookup.v	PASS	0	ci-logs/verilog/encryption_rew_core_ip_tiny_aes_test_test_table_lookup.v.run.log
+iverilog-testbench-compile	./encryption/rew/test/AESREWORAMTestbench.v	FAIL	89	ci-logs/verilog/encryption_rew_test_AESREWORAMTestbench.v.compile.log
+iverilog-testbench-compile	./encryption/rew/test/REWAESCoreTestbench.v	FAIL	1	ci-logs/verilog/encryption_rew_test_REWAESCoreTestbench.v.compile.log
+iverilog-testbench-compile	./encryption/rew/test/TinyAESTopTestbench.v	FAIL	2	ci-logs/verilog/encryption_rew_test_TinyAESTopTestbench.v.compile.log
+iverilog-testbench-compile	./frontend/test/testFrontEnd.v	FAIL	3	ci-logs/verilog/frontend_test_testFrontEnd.v.compile.log
+iverilog-testbench-compile	./frontend/test/testPLB.v	FAIL	2	ci-logs/verilog/frontend_test_testPLB.v.compile.log
+iverilog-testbench-compile	./frontend/test/testUORAM.v	FAIL	4	ci-logs/verilog/frontend_test_testUORAM.v.compile.log
+iverilog-testbench-compile	./frontend/test/testUORAM_synthBackend.v	FAIL	2	ci-logs/verilog/frontend_test_testUORAM_synthBackend.v.compile.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_f_permutation.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.compile.log
+vvp-testbench-run	./integrity/core_ip/Keccak512/test_f_permutation.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_f_permutation.v.run.log
 iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_keccak.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_keccak.v.compile.log
-iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_padder.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.compile.log
-iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_padder1.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.compile.log
-iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_rconst2in1.v	FAIL	2	ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.compile.log
-iverilog-testbench-compile	./integrity/test/testIntegrityVerifier.v	FAIL	4	ci-logs/verilog/integrity_test_testIntegrityVerifier.v.compile.log
-iverilog-testbench-compile	./stash/test/StashCoreTestbench.v	FAIL	5	ci-logs/verilog/stash_test_StashCoreTestbench.v.compile.log
-iverilog-testbench-compile	./stash/test/StashTestbench.v	FAIL	5	ci-logs/verilog/stash_test_StashTestbench.v.compile.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_padder.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.compile.log
+vvp-testbench-run	./integrity/core_ip/Keccak512/test_padder.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder.v.run.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_padder1.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.compile.log
+vvp-testbench-run	./integrity/core_ip/Keccak512/test_padder1.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_padder1.v.run.log
+iverilog-testbench-compile	./integrity/core_ip/Keccak512/test_rconst2in1.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.compile.log
+vvp-testbench-run	./integrity/core_ip/Keccak512/test_rconst2in1.v	PASS	0	ci-logs/verilog/integrity_core_ip_Keccak512_test_rconst2in1.v.run.log
+iverilog-testbench-compile	./integrity/test/testIntegrityVerifier.v	FAIL	26	ci-logs/verilog/integrity_test_testIntegrityVerifier.v.compile.log
+iverilog-testbench-compile	./stash/test/StashCoreTestbench.v	FAIL	4	ci-logs/verilog/stash_test_StashCoreTestbench.v.compile.log
+iverilog-testbench-compile	./stash/test/StashTestbench.v	FAIL	2	ci-logs/verilog/stash_test_StashTestbench.v.compile.log
 ```

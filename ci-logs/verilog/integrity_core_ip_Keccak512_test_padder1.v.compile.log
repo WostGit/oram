@@ -1,4 +1,11 @@
-integrity/old/IntegrityVerifier.v:11: error: 'IntegrityVerifier' has already been declared in this scope.
-integrity/IntegrityVerifier.v:20:      : It was declared here as a module.
-integrity/old/IntegrityVerifier.v:348: Module IntegrityVerifier was already declared here: integrity/IntegrityVerifier.v:20
-
+warning: Some design elements have no explicit time unit and/or
+       : time precision. This may cause confusing timing results.
+       : Affected design elements are:
+       :   -- module f_permutation declared here: integrity/core_ip/Keccak512/f_permutation.v:19
+       :   -- module keccak declared here: integrity/core_ip/Keccak512/keccak.v:26
+       :   -- module padder declared here: integrity/core_ip/Keccak512/padder.v:21
+       :   -- module padder1 declared here: integrity/core_ip/Keccak512/padder1.v:17
+       :   -- module rconst2in1 declared here: integrity/core_ip/Keccak512/rconst2in1.v:18
+       :   -- module round2in1 declared here: integrity/core_ip/Keccak512/round2in1.v:25
+build/verilog-ci/sanitized-testbenches/integrity_core_ip_Keccak512_test_padder1.v:32: warning: Port 2 (byte_num) of padder1 expects 4 bits, got 3.
+build/verilog-ci/sanitized-testbenches/integrity_core_ip_Keccak512_test_padder1.v:32:        : Padding 1 high bits of the port.

@@ -1,4 +1,2 @@
 integrity/IntegrityVerifier.v
 integrity/Keccak_WF.v
-integrity/old/IntegrityVerifier.v
-integrity/test/testIntegrityVerifier.v
