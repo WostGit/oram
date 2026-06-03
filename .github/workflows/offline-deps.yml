@@ -1,0 +1,98 @@
+name: Build offline ORAM dependency bundle
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/offline-deps.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build-offline-deps:
+    name: Build Ubuntu 22.04 offline dependency bundle
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out ORAM repository
+        uses: actions/checkout@v4
+
+      - name: Prepare download directories
+        run: |
+          set -euxo pipefail
+          mkdir -p offline-debs metadata
+
+      - name: Download apt dependencies as .deb files
+        run: |
+          set -euxo pipefail
+          sudo apt-get update
+
+          # Core tools for compiling/simulating the ORAM Verilog repo offline.
+          # build-essential brings gcc/g++/make/libc headers; iverilog/vvp handles
+          # lightweight Verilog simulation; verilator/yosys are useful fallback tools.
+          packages=(
+            build-essential
+            make
+            python3
+            iverilog
+            verilator
+            yosys
+            gtkwave
+            coq
+            ocaml-findlib
+          )
+
+          apt-cache depends --recurse --no-recommends \
+            --no-suggests --no-conflicts --no-breaks \
+            --no-replaces --no-enhances "${packages[@]}" \
+            | awk '/^  Depends: / {print $2} /^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}' \
+            | sed 's/<//; s/>//' \
+            | sort -u > metadata/package-list.txt
+
+          # Add requested top-level packages explicitly in case apt-cache output changes.
+          printf '%s\n' "${packages[@]}" >> metadata/package-list.txt
+          sort -u -o metadata/package-list.txt metadata/package-list.txt
+
+          cd offline-debs
+          xargs -a ../metadata/package-list.txt -r apt-get download
+          cd ..
+          dpkg-scanpackages offline-debs /dev/null | gzip -9c > offline-debs/Packages.gz
+          sha256sum offline-debs/*.deb > metadata/SHA256SUMS
+          cp metadata/package-list.txt offline-debs/package-list.txt
+          cp metadata/SHA256SUMS offline-debs/SHA256SUMS
+
+      - name: Discover likely ORAM testbench entry points
+        run: |
+          set -euxo pipefail
+          {
+            echo '# Verilog project/testbench discovery'
+            echo
+            echo '## Project files'
+            find . -type f \( -name '*.prj' -o -name '*.xpr' -o -name 'Makefile' \) | sort
+            echo
+            echo '## Testbench-looking Verilog files'
+            find . -type f \( -iname '*test*.v' -o -iname '*tb*.v' \) | sort
+            echo
+            echo '## Simulator/tool versions from runner'
+            iverilog -V | head -40 || true
+            verilator --version || true
+            yosys -V || true
+          } > metadata/oram-testbench-discovery.md
+
+      - name: Upload offline .deb bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: oram-ubuntu22.04-debs
+          path: offline-debs/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload ORAM discovery metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: oram-discovery-metadata
+          path: metadata/
+          if-no-files-found: error
+          retention-days: 14
