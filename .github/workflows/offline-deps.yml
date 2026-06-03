@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - '.github/workflows/offline-deps.yml'
+      - 'scripts/verilog_ci_agent.sh'
 
 permissions:
   contents: write
@@ -16,7 +17,7 @@ concurrency:
 
 jobs:
   build-offline-deps:
-    name: Build Ubuntu 22.04 offline dependency bundle
+    name: Build Ubuntu 22.04 offline dependency bundle and Verilog CI
     runs-on: ubuntu-22.04
 
     steps:
@@ -27,7 +28,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Build bundle, write logs, commit logs, then report status
+      - name: Build bundle, run Verilog CI, write logs, commit logs, then report status
         shell: bash
         run: |
           set +e
@@ -65,7 +66,7 @@ jobs:
           }
 
           cat > "$LOG" <<EOF
-          # Offline dependency CI log
+          # Offline dependency and Verilog CI log
 
           - Repository: ${GITHUB_REPOSITORY}
           - Branch/ref: ${GITHUB_REF}
@@ -102,6 +103,7 @@ jobs:
             command -v apt-rdepends
             command -v dpkg-scanpackages
             command -v iverilog
+            command -v vvp
             command -v verilator
             command -v yosys
           '
@@ -113,10 +115,6 @@ jobs:
             for pkg in "${packages[@]}"; do
               apt-rdepends "$pkg" >> metadata/package-list.raw.txt
             done
-
-            # Keep only real binary package names. apt-rdepends output contains lines
-            # such as "Depends: <virtual-package>"; those virtual names broke the old
-            # workflow because apt-get download cannot select candidates for them.
             awk '\''/^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}'\'' metadata/package-list.raw.txt \
               | sort -u \
               | while read -r pkg; do
@@ -125,7 +123,6 @@ jobs:
                   fi
                 done \
               | sort -u > metadata/package-list.txt
-
             printf "%s\n" "${packages[@]}" >> metadata/package-list.txt
             sort -u -o metadata/package-list.txt metadata/package-list.txt
             test -s metadata/package-list.txt
@@ -191,6 +188,8 @@ jobs:
           log_line "## Verilog project/testbench discovery"
           cat metadata/oram-testbench-discovery.md | tee -a "$LOG"
 
+          run_logged "Agentic Verilog CI harness" bash scripts/verilog_ci_agent.sh
+
           log_line ""
           log_line "## Final status before commit"
           log_line ""
@@ -208,9 +207,6 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git pull --rebase origin "${GITHUB_REF_NAME}"
-
-            # Remove stale generated files from older workflow versions, but keep
-            # .deb payloads out of git. They live in the artifact only.
             git rm -r --ignore-unmatch ci-logs metadata offline-debs
             git add ci-logs metadata
             git status --short
@@ -220,18 +216,17 @@ jobs:
               date -u '+%Y-%m-%dT%H:%M:%SZ' > ci-logs/last-run-heartbeat.txt
               git add ci-logs/last-run-heartbeat.txt
             fi
-            git commit -m "Add offline dependency CI logs for run ${GITHUB_RUN_ID}"
+            git commit -m "Add offline dependency and Verilog CI logs for run ${GITHUB_RUN_ID}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
           } 2>&1 | tee -a "$LOG"
           COMMIT_RC=${PIPESTATUS[0]}
           log_line '```'
           log_line "Commit/push exit code: ${COMMIT_RC}"
 
-          # Best-effort second commit so latest log includes the commit transcript.
           cp "$LOG" "$LATEST"
           if [ "$COMMIT_RC" -eq 0 ]; then
-            git add "$LOG" "$LATEST"
-            git commit -m "Update offline dependency commit transcript for run ${GITHUB_RUN_ID}" || true
+            git add "$LOG" "$LATEST" ci-logs/latest-verilog-ci.md metadata/verilog-test-results.tsv metadata/verilog-ci-summary.md || true
+            git commit -m "Update CI commit transcript for run ${GITHUB_RUN_ID}" || true
             git push origin "HEAD:${GITHUB_REF_NAME}" || true
           fi
 
@@ -249,11 +244,11 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      - name: Upload ORAM discovery metadata and logs
+      - name: Upload CI metadata and logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: oram-discovery-metadata-and-logs
+          name: oram-ci-metadata-and-logs
           path: |
             metadata/
             ci-logs/
