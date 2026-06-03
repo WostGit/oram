@@ -1,0 +1,6 @@
+./TinyORAMASICWrap.v
+./TinyORAMCore.v
+./encryption/basic/core_ip/*
+./encryption/rew/core_ip/*
+./integrity/core_ip/*
+./boards/*

@@ -1,3 +1,14 @@
-./TinyORAMASICWrap.v:57: Include file network_define.v not found
-./TinyORAMASICWrap.v:56: syntax error
+backend/PathORAMBackend.v:356: warning: implicit definition of wire 'ROStartAESValid'.
+backend/PathORAMBackend.v:357: warning: implicit definition of wire 'ROStartAESReady'.
+backend/PathORAMBackend.v:366: warning: implicit definition of wire 'PBF_DRAMReadData'.
+backend/PathORAMBackend.v:367: warning: implicit definition of wire 'PBF_DRAMReadDataValid'.
+backend/test/PathORAMBackendTestbench.v:56: Include file BucketDRAMLocal.vh not found
+backend/old/CoherenceController.v:436: warning: implicit definition of wire 'RWStashWB'.
+./include/BucketLocal.vh:93: error: 'DDRAWidth' has already been declared in this scope.
+backend/test/PathORAMBackendTestbench.v:48:      : It was declared here as a parameter.
+./include/DDR3SDRAMLocal.vh:4: error: 'DDRDQWidth' has already been declared in this scope.
+backend/test/PathORAMBackendTestbench.v:46:      : It was declared here as a parameter.
+./include/DDR3SDRAMLocal.vh:5: error: 'DDRCWidth' has already been declared in this scope.
+backend/test/PathORAMBackendTestbench.v:47:      : It was declared here as a parameter.
+backend/test/PathORAMBackendTestbench.v:55: syntax error
 I give up.

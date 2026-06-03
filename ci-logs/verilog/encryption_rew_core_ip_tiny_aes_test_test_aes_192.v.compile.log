@@ -1,3 +1,17 @@
-./TinyORAMASICWrap.v:57: Include file network_define.v not found
-./TinyORAMASICWrap.v:56: syntax error
+encryption/rew/AESREWORAM.v:30: warning: timescale for AESREWORAM inherited from another file.
+encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
+encryption/rew/AESREWORAM.v:535: warning: implicit definition of wire 'RW_R_Ctr'.
+encryption/rew/AESREWORAM.v:536: warning: implicit definition of wire 'RW_W_Ctr'.
+encryption/rew/AESREWORAM.v:537: warning: implicit definition of wire 'RO_R_Ctr'.
+encryption/rew/AESREWORAM.v:538: warning: implicit definition of wire 'RO_W_Ctr'.
+encryption/rew/test/AESREWORAMTestbench.v:33: encryption/rew/GentrySeedGenerator.v:12: warning: timescale for GentrySeedGenerator inherited from another file.
+encryption/basic/test/AESDWTestBench.vInclude file BucketDRAMLocal.vh not found
+:8: ...: The inherited timescale is here.
+encryption/rew/REWAESCore.v:40: warning: timescale for REWAESCore inherited from another file.
+encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
+encryption/rew/ROISeedGenerator.v:5: warning: timescale for ROISeedGenerator inherited from another file.
+encryption/basic/test/AESDWTestBench.v:8: ...: The inherited timescale is here.
+./include/DDR3SDRAMLocal.vh:4: error: 'DDRDQWidth' has already been declared in this scope.
+encryption/rew/test/AESREWORAMTestbench.v:23:      : It was declared here as a parameter.
+encryption/rew/test/AESREWORAMTestbench.v:32: syntax error
 I give up.

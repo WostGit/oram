@@ -1,3 +1,4 @@
-./TinyORAMASICWrap.v:57: Include file network_define.v not found
-./TinyORAMASICWrap.v:56: syntax error
-I give up.
+integrity/old/IntegrityVerifier.v:11: error: 'IntegrityVerifier' has already been declared in this scope.
+integrity/IntegrityVerifier.v:20:      : It was declared here as a module.
+integrity/old/IntegrityVerifier.v:348: Module IntegrityVerifier was already declared here: integrity/IntegrityVerifier.v:20
+

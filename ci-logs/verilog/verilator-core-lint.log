@@ -1,1 +1,244 @@
-%Error: Invalid option: --timing
+%Warning-PINMISSING: DummyGenASIC.v:116:5: Cell has missing pin: 'InData'
+  116 |     cmd_v(  .Clock(     Clock),
+      |     ^~~~~
+                     include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                     include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                     include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                     DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+                     ... Use "/* verilator lint_off PINMISSING */" and lint_on around source to disable this message.
+%Warning-PINMISSING: DummyGenASIC.v:116:5: Cell has missing pin: 'OutData'
+  116 |     cmd_v(  .Clock(     Clock),
+      |     ^~~~~
+                     include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                     include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                     include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                     DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Warning-PINMISSING: DummyGenASIC.v:126:5: Cell has missing pin: 'Intermediate'
+  126 |     bst_cnt( .Clock(     Clock),
+      |     ^~~~~~~
+                     include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                     include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                     include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                     DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Warning-PINMISSING: DummyGenASIC.v:126:5: Cell has missing pin: 'Count'
+  126 |     bst_cnt( .Clock(     Clock),
+      |     ^~~~~~~
+                     include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                     include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                     include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                     DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Warning-PINMISSING: DummyGenASIC.v:132:5: Cell has missing pin: 'Intermediate'
+  132 |     bkt_cnt( .Clock(     Clock),
+      |     ^~~~~~~
+                     include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                     include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                     include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                     DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Warning-DECLFILENAME: gatelib/Counter.v:116:8: Filename 'Counter' does not match MODULE name: 'MCounter'
+  116 | module MCounter(Clock, Reset, Enable, Count);
+      |        ^~~~~~~~
+                       DummyGenASIC.v:142:1: ... note: In file included from DummyGenASIC.v
+                       include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                       include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                       include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                       DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Warning-DECLFILENAME: gatelib/Pipeline.v:116:8: Filename 'Pipeline' does not match MODULE name: 'PipelinedRegister'
+  116 | module PipelinedRegister(Clock, Reset, In, Out)  ;
+      |        ^~~~~~~~~~~~~~~~~
+                       DummyGenASIC.v:173:1: ... note: In file included from DummyGenASIC.v
+                       include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                       include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                       include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                       DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Warning-DECLFILENAME: gatelib/Register.v:113:8: Filename 'Register' does not match MODULE name: 'Register1b'
+  113 | module Register1b(Clock, Reset, Set, Out);
+      |        ^~~~~~~~~~
+                       gatelib/Counter.v:107:1: ... note: In file included from Counter.v
+                       DummyGenASIC.v:142:1: ... note: In file included from DummyGenASIC.v
+                       include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+                       include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+                       include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+                       DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Error: gatelib/FIFORegister.v:83:27: Replication value of 0 is only legal under a concatenation (IEEE 1800-2017 11.4.12.1)
+                                    : ... In instance DummyGenASIC.cmd_v.STAGE[0].Element
+   83 |        Initial =    {Width{1'b0}},
+      |                           ^
+        gatelib/FIFOLinear.v:139:1: ... note: In file included from FIFOLinear.v
+        DummyGenASIC.v:118:1: ... note: In file included from DummyGenASIC.v
+        include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+        include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+        include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+        DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Error: gatelib/FIFORegister.v:85:29: Replication value of 0 is only legal under a concatenation (IEEE 1800-2017 11.4.12.1)
+                                    : ... In instance DummyGenASIC.cmd_v.STAGE[0].Element
+   85 |        ResetValue =   {Width{1'b0}},
+      |                             ^
+        gatelib/FIFOLinear.v:139:1: ... note: In file included from FIFOLinear.v
+        DummyGenASIC.v:118:1: ... note: In file included from DummyGenASIC.v
+        include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+        include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+        include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+        DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Error: gatelib/Register.v:55:28: Replication value of 0 is only legal under a concatenation (IEEE 1800-2017 11.4.12.1)
+                                : ... In instance DummyGenASIC.cmd_v.STAGE[0].Element.Value
+   55 |        SetValue =    {Width{1'b1}};
+      |                            ^
+        gatelib/Counter.v:107:1: ... note: In file included from Counter.v
+        DummyGenASIC.v:142:1: ... note: In file included from DummyGenASIC.v
+        include/TrafficGenLocal.vh:22:46: ... note: In file included from TrafficGenLocal.vh
+        include/CommandsLocal.vh:22:33: ... note: In file included from CommandsLocal.vh
+        include/PathORAM.vh:86:36: ... note: In file included from PathORAM.vh
+        DummyGenASIC.v:18:3: ... note: In file included from DummyGenASIC.v
+%Error: Exiting due to 3 error(s)
+bash: line 2: ./TrafficGenASIC.v: Permission denied
+./addr/AddrGen.v: line 1: //==============================================================================: No such file or directory
+./addr/AddrGen.v: line 2: //: Is a directory
+./addr/AddrGen.v: line 3: //: Is a directory
+./addr/AddrGen.v: line 4: //==============================================================================: No such file or directory
+./addr/AddrGen.v: line 18: include: command not found
+./addr/AddrGen.v: line 20: module: command not found
+./addr/AddrGen.v: line 22: Clock,: command not found
+./addr/AddrGen.v: line 23: Start,: command not found
+./addr/AddrGen.v: line 24: Addr,: command not found
+./addr/AddrGen.v: line 26: //: Is a directory
+./addr/AddrGen.v: line 27: STIdx,: command not found
+./addr/AddrGen.v: line 18: include: command not found
+./addr/AddrGen.v: line 20: include: command not found
+./addr/AddrGen.v: line 20: include: command not found
+./addr/AddrGen.v: line 23: syntax error near unexpected token `ORAML'
+./addr/AddrGen.v: line 23: `	localparam ORAMLogL = `log2(ORAML) + 1; // TODO need +1 for Ready signal corner case (e.g., ORAML = 31); find a better solution?'
+./addr/AddrGenBktHead.v: line 1: //==============================================================================: No such file or directory
+./addr/AddrGenBktHead.v: line 2: //: Is a directory
+./addr/AddrGenBktHead.v: line 3: //: Is a directory
+./addr/AddrGenBktHead.v: line 26: syntax error near unexpected token `('
+./addr/AddrGenBktHead.v: line 26: `	localparam LogSTSizeBottom = (ORAML+1) % L_st;            // short trees' size (in buckets) at the bottom'
+bash: line 5: ./addr/BktIDGen.v: Permission denied
+./addr/DRAMInitializer.v: line 2: //==============================================================================: No such file or directory
+./addr/DRAMInitializer.v: line 3: //: Is a directory
+./addr/DRAMInitializer.v: line 4: //==============================================================================: No such file or directory
+./addr/DRAMInitializer.v: line 29: include: command not found
+./addr/DRAMInitializer.v: line 30: //==============================================================================: No such file or directory
+./addr/DRAMInitializer.v: line 32: //------------------------------------------------------------------------------: No such file or directory
+./addr/DRAMInitializer.v: line 33: //: Is a directory
+./addr/DRAMInitializer.v: command substitution: line 34: unexpected EOF while looking for matching `''
+./addr/DRAMInitializer.v: command substitution: line 54: syntax error: unexpected end of file
+./addr/DRAMInitializer.v: line 29: include: command not found
+./addr/DRAMInitializer.v: line 32: include: command not found
+./addr/DRAMInitializer.v: line 32: include: command not found
+./addr/DRAMInitializer.v: line 39: syntax error near unexpected token `DDRDWidth,'
+./addr/DRAMInitializer.v: line 39: `								NumBEDHFlits =		NumBuckets * `divceil(DDRDWidth, BEDWidth), // num header flits in tree in BEDWidth chunks'
+./addr/PathGen.v: line 1: //==============================================================================: No such file or directory
+./addr/PathGen.v: line 2: //: Is a directory
+./addr/PathGen.v: line 3: //: Is a directory
+./addr/PathGen.v: line 4: unexpected EOF while looking for matching `''
+./addr/PathGen.v: line 36: syntax error: unexpected end of file
+bash: line 8: ./backend/BackendCoreController.v: Permission denied
+bash: line 9: ./backend/PathORAMBackend.v: Permission denied
+bash: line 10: ./backend/PathORAMBackendCore.v: Permission denied
+bash: line 11: ./backend/REWStatCtr.v: Permission denied
+bash: line 12: ./backend/old/CoherenceController.v: Permission denied
+bash: line 13: ./backend/test/PathORAMBackendTestbench.v: Permission denied
+bash: line 14: ./encryption/basic/AESPathORAM.v: Permission denied
+bash: line 15: ./encryption/basic/AES_DW.v: Permission denied
+bash: line 16: ./encryption/basic/AES_W.v: Permission denied
+./encryption/basic/PRNG.v: line 1: //==============================================================================: No such file or directory
+./encryption/basic/PRNG.v: line 2: //: Is a directory
+./encryption/basic/PRNG.v: line 3: syntax error near unexpected token `('
+./encryption/basic/PRNG.v: line 3: `//	Desc: pseudo random number generator using AES(counter), ready-valid interface'
+bash: line 18: ./encryption/basic/test/AESDWTestBench.v: Permission denied
+bash: line 19: ./encryption/rew/AESREWORAM.v: Permission denied
+bash: line 20: ./encryption/rew/GentrySeedGenerator.v: Permission denied
+bash: line 21: ./encryption/rew/REWAESCore.v: Permission denied
+bash: line 22: ./encryption/rew/ROISeedGenerator.v: Permission denied
+bash: line 23: ./encryption/rew/test/AESREWORAMTestbench.v: Permission denied
+bash: line 24: ./encryption/rew/test/REWAESCoreTestbench.v: Permission denied
+bash: line 25: ./encryption/rew/test/TinyAESTopTestbench.v: Permission denied
+bash: line 26: ./encryption/rew/test/tiny_aes_vc707.v: Permission denied
+./frontend/DM_Cache.v: line 1: //==============================================================================: No such file or directory
+./frontend/DM_Cache.v: line 2: //: Is a directory
+./frontend/DM_Cache.v: line 3: //: Is a directory
+./frontend/DM_Cache.v: line 4: //: Is a directory
+./frontend/DM_Cache.v: line 5: //: Is a directory
+./frontend/DM_Cache.v: line 6: //==============================================================================: No such file or directory
+./frontend/DM_Cache.v: line 22: include: command not found
+./frontend/DM_Cache.v: line 24: module: command not found
+./frontend/DM_Cache.v: line 25: Clock,: command not found
+./frontend/DM_Cache.v: line 26: OutValid,: command not found
+./frontend/DM_Cache.v: line 29: parameter: command not found
+./frontend/DM_Cache.v: line 30: LogLineSize: command not found
+./frontend/DM_Cache.v: line 31: Capacity: command not found
+./frontend/DM_Cache.v: line 32: AddrWidth: command not found
+./frontend/DM_Cache.v: line 33: ExtraTagWidth: command not found
+./frontend/DM_Cache.v: line 34: parameter: command not found
+./frontend/DM_Cache.v: line 22: include: command not found
+./frontend/DM_Cache.v: line 118: syntax error near unexpected token `('
+./frontend/DM_Cache.v: line 118: `    RAM #(.DWidth(DataWidth), .AWidth(DArrayAddrWidth)  `ifndef FPGA_MEMORY , .SRAM(1) `endif ) '
+bash: line 28: ./frontend/Frontend.v: Permission denied
+./frontend/PosMapPLB.v: line 1: //==============================================================================: No such file or directory
+./frontend/PosMapPLB.v: line 2: //: Is a directory
+./frontend/PosMapPLB.v: line 3: syntax error near unexpected token `('
+./frontend/PosMapPLB.v: line 3: `//	Desc:		A nice and simple abstraction of PLB plus PosMap (PPP) to frontend'
+bash: line 30: ./frontend/UORAMController.v: Permission denied
+bash: line 31: ./frontend/UORAMDataPath.v: Permission denied
+bash: line 32: ./frontend/test/testFrontEnd.v: Permission denied
+./frontend/test/testPLB.v: line 5: include: command not found
+./frontend/test/testPLB.v: line 7: module: command not found
+./frontend/test/testPLB.v: line 5: include: command not found
+./frontend/test/testPLB.v: line 14: syntax error near unexpected token `ORAMB'
+./frontend/test/testPLB.v: line 14: `    localparam LogLeafInBlock = `log2f(ORAMB / LeafWidth);'
+./frontend/test/testUORAM.v: line 5: include: command not found
+./frontend/test/testUORAM.v: line 7: module: command not found
+./frontend/test/testUORAM.v: line 5: include: command not found
+./frontend/test/testUORAM.v: line 8: include: command not found
+./frontend/test/testUORAM.v: line 8: include: command not found
+./frontend/test/testUORAM.v: line 10: include: command not found
+./frontend/test/testUORAM.v: line 10: include: command not found
+./frontend/test/testUORAM.v: line 12: include: command not found
+./frontend/test/testUORAM.v: line 12: include: command not found
+./frontend/test/testUORAM.v: line 16: include: command not found
+./frontend/test/testUORAM.v: line 16: ifdef: command not found
+./frontend/test/testUORAM.v: line 90: syntax error near unexpected token `)'
+./frontend/test/testUORAM.v: line 90: `							.Mode_TrafficGen(		1'b1), // For the chip, just run traffic gen for a long time'
+bash: line 35: ./frontend/test/testUORAM_synthBackend.v: Permission denied
+bash: line 36: ./gatelib/Bin2Gray.v: Permission denied
+bash: line 37: ./gatelib/ClockSource.v: Permission denied
+bash: line 38: ./gatelib/CountAlarm.v: Permission denied
+bash: line 39: ./gatelib/CountCompare.v: Permission denied
+bash: line 40: ./gatelib/Counter.v: Permission denied
+bash: line 41: ./gatelib/DRAM2RAM.v: Permission denied
+bash: line 42: ./gatelib/FIFOControl.v: Permission denied
+bash: line 43: ./gatelib/FIFOLinear.v: Permission denied
+bash: line 44: ./gatelib/FIFORAM.v: Permission denied
+bash: line 45: ./gatelib/FIFORegControl.v: Permission denied
+bash: line 46: ./gatelib/FIFORegister.v: Permission denied
+bash: line 47: ./gatelib/FIFOShiftRound.v: Permission denied
+bash: line 48: ./gatelib/Gray2Bin.v: Permission denied
+bash: line 49: ./gatelib/LFSR.v: Permission denied
+bash: line 50: ./gatelib/Mux.v: Permission denied
+bash: line 51: ./gatelib/OneHot2Bin.v: Permission denied
+bash: line 52: ./gatelib/Pipeline.v: Permission denied
+bash: line 53: ./gatelib/PrioritySelect.v: Permission denied
+bash: line 54: ./gatelib/RAM.v: Permission denied
+bash: line 55: ./gatelib/Register.v: Permission denied
+bash: line 56: ./gatelib/Reverse.v: Permission denied
+bash: line 57: ./gatelib/ShiftRegister.v: Permission denied
+bash: line 58: ./gatelib/SynthesizedDRAM.v: Permission denied
+bash: line 59: ./gatelib/SynthesizedRandDRAM.v: Permission denied
+bash: line 60: ./gatelib/UDCounter.v: Permission denied
+bash: line 61: ./integrity/IntegrityVerifier.v: Permission denied
+bash: line 62: ./integrity/Keccak_WF.v: Permission denied
+bash: line 63: ./integrity/old/IntegrityVerifier.v: Permission denied
+bash: line 64: ./integrity/test/testIntegrityVerifier.v: Permission denied
+bash: line 65: ./sram_wrap/RF1DFCMN00128X078D02C064_PWRAP.v: Permission denied
+bash: line 66: ./sram_wrap/RF1DFCMN00128X192D02C064_PWRAP.v: Permission denied
+bash: line 67: ./sram_wrap/RF1DFCMN00512X128D04C064_PWRAP.v: Permission denied
+bash: line 68: ./sram_wrap/SRAM1DFCMN01024X064D04C128_PWRAP.v: Permission denied
+bash: line 69: ./sram_wrap/SRAM_WRAP.v: Permission denied
+bash: line 70: ./stash/DRAMToStash.v: Permission denied
+bash: line 71: ./stash/Stash.v: Permission denied
+bash: line 72: ./stash/StashCore.v: Permission denied
+bash: line 73: ./stash/StashScanTable.v: Permission denied
+bash: line 74: ./stash/StashToDRAM.v: Permission denied
+bash: line 75: ./stash/StashTop.v: Permission denied
+bash: line 76: ./stash/test/StashCoreTestbench.v: Permission denied
+bash: line 77: ./stash/test/StashTestbench.v: Permission denied

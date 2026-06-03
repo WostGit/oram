@@ -1,6 +1,4 @@
 ./DummyGenASIC.v
-./TinyORAMASICWrap.v
-./TinyORAMCore.v
 ./TrafficGenASIC.v
 ./addr/AddrGen.v
 ./addr/AddrGenBktHead.v
