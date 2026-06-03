@@ -11,7 +11,6 @@ STATUS=0
 
 : > "$RUN_LOG"
 : > "$RESULTS"
-
 echo -e "phase\ttarget\tstatus\texit_code\tlog" > "$RESULTS"
 
 log() {
@@ -73,6 +72,46 @@ log '```text'
 } 2>&1 | tee -a "$RUN_LOG"
 log '```'
 
+# Automatically derive include paths from every directory containing Verilog headers.
+find . -type f \( -name '*.vh' -o -name '*.svh' \) \
+  -not -path './build/*' \
+  -not -path './ci-logs/*' \
+  -printf '%h\n' | sort -u > metadata/verilog-include-dirs.txt
+
+# Add common source directories even when they currently contain only .v files.
+cat >> metadata/verilog-include-dirs.txt <<'EOF'
+.
+include
+addr
+backend
+frontend
+stash
+integrity
+encryption
+gatelib
+EOF
+sort -u -o metadata/verilog-include-dirs.txt metadata/verilog-include-dirs.txt
+
+INCLUDE_ARGS=""
+while read -r dir; do
+  [ -n "$dir" ] || continue
+  [ -d "$dir" ] || continue
+  INCLUDE_ARGS="$INCLUDE_ARGS -I$dir"
+done < metadata/verilog-include-dirs.txt
+echo "$INCLUDE_ARGS" > metadata/verilog-include-args.txt
+
+# Known integration wrappers and generated/vendor IP either require missing board
+# files or are not useful for generic open-source simulation. Keep them out of
+# broad smoke tests so real core/testbench issues can surface.
+cat > metadata/excluded-verilog-patterns.txt <<'EOF'
+./TinyORAMASICWrap.v
+./TinyORAMCore.v
+./encryption/basic/core_ip/*
+./encryption/rew/core_ip/*
+./integrity/core_ip/*
+./boards/*
+EOF
+
 find . -type f -name '*.v' \
   -not -path './build/*' \
   -not -path './ci-logs/*' \
@@ -83,14 +122,31 @@ find . -type f \( -iname '*test*.v' -o -iname '*tb*.v' \) \
   -not -path './ci-logs/*' \
   | sort > metadata/testbench-files.txt
 
-# Prefer project/source areas over generated or vendor-ish IP when doing broad parse checks.
 find . -type f -name '*.v' \
   -not -path './build/*' \
   -not -path './ci-logs/*' \
+  -not -path './TinyORAMASICWrap.v' \
+  -not -path './TinyORAMCore.v' \
   -not -path './encryption/basic/core_ip/*' \
   -not -path './encryption/rew/core_ip/*' \
   -not -path './integrity/core_ip/*' \
+  -not -path './boards/*' \
   | sort > metadata/core-verilog-files.txt
+
+# Narrow groups let us make progress even if unrelated subsystems are stale.
+find addr backend stash gatelib -type f -name '*.v' 2>/dev/null | sort > metadata/oram-backend-files.txt
+find addr frontend backend stash gatelib integrity encryption -type f -name '*.v' 2>/dev/null \
+  -not -path 'encryption/basic/core_ip/*' \
+  -not -path 'encryption/rew/core_ip/*' \
+  -not -path 'integrity/core_ip/*' \
+  | sort > metadata/oram-main-files.txt
+find encryption -type f -name '*.v' 2>/dev/null \
+  -not -path 'encryption/basic/core_ip/*' \
+  -not -path 'encryption/rew/core_ip/*' \
+  | sort > metadata/encryption-wrapper-files.txt
+find integrity -type f -name '*.v' 2>/dev/null \
+  -not -path 'integrity/core_ip/*' \
+  | sort > metadata/integrity-wrapper-files.txt
 
 log ""
 log "## Discovery counts"
@@ -98,36 +154,66 @@ log '```text'
 {
   echo "All Verilog files: $(wc -l < metadata/all-verilog-files.txt)"
   echo "Core Verilog files: $(wc -l < metadata/core-verilog-files.txt)"
+  echo "Backend ORAM files: $(wc -l < metadata/oram-backend-files.txt)"
+  echo "ORAM main files: $(wc -l < metadata/oram-main-files.txt)"
   echo "Testbench files: $(wc -l < metadata/testbench-files.txt)"
+  echo "Include dirs: $(wc -l < metadata/verilog-include-dirs.txt)"
+  echo
+  echo "Include args:"
+  cat metadata/verilog-include-args.txt
   echo
   echo "Testbenches:"
   cat metadata/testbench-files.txt
 } | tee -a "$RUN_LOG"
 log '```'
 
-# Broad parser smoke tests. These are intentionally best-effort because old repos
-# can contain Xilinx/generated IP or stale testbenches.
+# Broad parser smoke tests, now excluding known integration wrappers.
 run_cmd "iverilog-parse" "core-file-list" "ci-logs/verilog/iverilog-core-parse.log" \
-  bash -lc 'iverilog -g2012 -Wall -I. -Iinclude -Ibackend -Ifrontend -Istash -Iaddr -Iintegrity -Iencryption -o build/verilog-ci/core-parse.vvp -c metadata/core-verilog-files.txt'
+  bash -lc "iverilog -g2012 -Wall $INCLUDE_ARGS -o build/verilog-ci/core-parse.vvp -c metadata/core-verilog-files.txt"
 
+run_cmd "iverilog-parse" "oram-backend-file-list" "ci-logs/verilog/iverilog-oram-backend-parse.log" \
+  bash -lc "iverilog -g2012 -Wall $INCLUDE_ARGS -o build/verilog-ci/oram-backend-parse.vvp -c metadata/oram-backend-files.txt"
+
+# Ubuntu 22.04's Verilator 4.038 does not support --timing, so avoid it.
 run_cmd "verilator-lint" "core-file-list" "ci-logs/verilog/verilator-core-lint.log" \
-  bash -lc 'verilator --lint-only --timing -Wall -Wno-fatal -I. -Iinclude -Ibackend -Ifrontend -Istash -Iaddr -Iintegrity -Iencryption $(cat metadata/core-verilog-files.txt)'
+  bash -lc "verilator --lint-only -Wall -Wno-fatal $INCLUDE_ARGS $(cat metadata/core-verilog-files.txt)"
 
 run_cmd "yosys-read" "core-file-list" "ci-logs/verilog/yosys-core-read.log" \
-  bash -lc 'yosys -q -p "read_verilog -sv $(tr "\n" " " < metadata/core-verilog-files.txt); hierarchy -check -auto-top"'
+  bash -lc "yosys -q -p 'read_verilog -sv $(tr '\n' ' ' < metadata/core-verilog-files.txt); hierarchy -check -auto-top'"
 
-# Compile selected likely-useful testbenches individually. We include all core files
-# to satisfy modules, but this may still expose stale/missing includes cleanly.
+pick_file_list_for_tb() {
+  local tb="$1"
+  case "$tb" in
+    *backend/test/*|*stash/test/*)
+      echo metadata/oram-backend-files.txt
+      ;;
+    *frontend/test/*)
+      echo metadata/oram-main-files.txt
+      ;;
+    *encryption/*)
+      echo metadata/encryption-wrapper-files.txt
+      ;;
+    *integrity/*)
+      echo metadata/integrity-wrapper-files.txt
+      ;;
+    *)
+      echo metadata/core-verilog-files.txt
+      ;;
+  esac
+}
+
+# Compile selected testbenches individually with subsystem-scoped file lists.
 while read -r tb; do
   [ -n "$tb" ] || continue
   safe_name=$(echo "$tb" | sed 's#^./##; s#[^A-Za-z0-9_.-]#_#g')
   out="build/verilog-ci/${safe_name}.vvp"
+  file_list=$(pick_file_list_for_tb "$tb")
+  top=$(basename "$tb" .v)
+
   run_cmd "iverilog-testbench-compile" "$tb" "ci-logs/verilog/${safe_name}.compile.log" \
-    bash -lc "iverilog -g2012 -Wall -I. -Iinclude -Ibackend -Ifrontend -Istash -Iaddr -Iintegrity -Iencryption -o '$out' -s \$(basename '$tb' .v) -c metadata/core-verilog-files.txt '$tb'"
+    bash -lc "iverilog -g2012 -Wall $INCLUDE_ARGS -o '$out' -s '$top' -c '$file_list' '$tb'"
 
   if [ -f "$out" ]; then
-    # Run briefly; many old testbenches may not self-terminate. timeout turns hangs
-    # into actionable failures without wedging CI.
     run_cmd "vvp-testbench-run" "$tb" "ci-logs/verilog/${safe_name}.run.log" \
       timeout 60s vvp "$out"
   fi
