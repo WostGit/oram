@@ -1,0 +1,9 @@
+build-essential
+make
+python3
+iverilog
+verilator
+yosys
+gtkwave
+coq
+ocaml-findlib

@@ -743,3 +743,19 @@ Yosys 0.9 (git sha1 1979e0b)
 
 - Captured status: 100
 - Finished UTC: 2026-06-03T10:39:17Z
+
+## Commit logs and metadata back to repository
+
+```text
++ git config user.name 'github-actions[bot]'
++ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
++ git pull --rebase origin oram_fpga_public
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
++ git rm -r --ignore-unmatch ci-logs metadata offline-debs
+error: the following files have local modifications:
+    ci-logs/latest-offline-deps.md
+    metadata/oram-testbench-discovery.md
+    metadata/package-list.txt
+(use --cached to keep the file, or -f to force removal)
++ git add ci-logs metadata
