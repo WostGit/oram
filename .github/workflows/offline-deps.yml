@@ -7,8 +7,12 @@ on:
       - '.github/workflows/offline-deps.yml'
 
 permissions:
-  contents: read
+  contents: write
   actions: read
+
+concurrency:
+  group: offline-deps-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build-offline-deps:
@@ -18,82 +22,160 @@ jobs:
     steps:
       - name: Check out ORAM repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
-      - name: Prepare download directories
+      - name: Initialize committed CI log
+        shell: bash
         run: |
-          set -euxo pipefail
-          mkdir -p offline-debs metadata
+          set -euo pipefail
+          mkdir -p ci-logs offline-debs metadata
+          LOG="ci-logs/offline-deps-run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.md"
+          LATEST="ci-logs/latest-offline-deps.md"
+          {
+            echo "# Offline dependency CI log"
+            echo
+            echo "- Repository: ${GITHUB_REPOSITORY}"
+            echo "- Branch/ref: ${GITHUB_REF}"
+            echo "- Commit: ${GITHUB_SHA}"
+            echo "- Workflow: ${GITHUB_WORKFLOW}"
+            echo "- Run ID: ${GITHUB_RUN_ID}"
+            echo "- Run attempt: ${GITHUB_RUN_ATTEMPT}"
+            echo "- Runner OS: ${RUNNER_OS}"
+            echo "- Started UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+            echo
+          } | tee "$LOG"
+          cp "$LOG" "$LATEST"
+          echo "CI_LOG=$LOG" >> "$GITHUB_ENV"
+          echo "CI_LATEST_LOG=$LATEST" >> "$GITHUB_ENV"
 
       - name: Download apt dependencies as .deb files
+        shell: bash
         run: |
-          set -euxo pipefail
-          sudo apt-get update
+          set -o pipefail
+          {
+            echo
+            echo "## Download apt dependencies"
+            echo
+            echo '```text'
+            set -x
+            sudo apt-get update
 
-          # Core tools for compiling/simulating the ORAM Verilog repo offline.
-          # build-essential brings gcc/g++/make/libc headers; iverilog/vvp handles
-          # lightweight Verilog simulation; verilator/yosys are useful fallback tools.
-          # This comment is intentionally present to allow a push-trigger refresh.
-          packages=(
-            build-essential
-            make
-            python3
-            iverilog
-            verilator
-            yosys
-            gtkwave
-            coq
-            ocaml-findlib
-          )
+            packages=(
+              build-essential
+              make
+              python3
+              iverilog
+              verilator
+              yosys
+              gtkwave
+              coq
+              ocaml-findlib
+            )
 
-          apt-cache depends --recurse --no-recommends \
-            --no-suggests --no-conflicts --no-breaks \
-            --no-replaces --no-enhances "${packages[@]}" \
-            | awk '/^  Depends: / {print $2} /^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}' \
-            | sed 's/<//; s/>//' \
-            | sort -u > metadata/package-list.txt
+            apt-cache depends --recurse --no-recommends \
+              --no-suggests --no-conflicts --no-breaks \
+              --no-replaces --no-enhances "${packages[@]}" \
+              | awk '/^  Depends: / {print $2} /^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}' \
+              | sed 's/<//; s/>//' \
+              | sort -u > metadata/package-list.txt
 
-          # Add requested top-level packages explicitly in case apt-cache output changes.
-          printf '%s\n' "${packages[@]}" >> metadata/package-list.txt
-          sort -u -o metadata/package-list.txt metadata/package-list.txt
+            printf '%s\n' "${packages[@]}" >> metadata/package-list.txt
+            sort -u -o metadata/package-list.txt metadata/package-list.txt
 
-          cd offline-debs
-          xargs -a ../metadata/package-list.txt -r apt-get download
-          cd ..
-          dpkg-scanpackages offline-debs /dev/null | gzip -9c > offline-debs/Packages.gz
-          sha256sum offline-debs/*.deb > metadata/SHA256SUMS
-          cp metadata/package-list.txt offline-debs/package-list.txt
-          cp metadata/SHA256SUMS offline-debs/SHA256SUMS
+            cd offline-debs
+            xargs -a ../metadata/package-list.txt -r apt-get download
+            cd ..
+            dpkg-scanpackages offline-debs /dev/null | gzip -9c > offline-debs/Packages.gz
+            sha256sum offline-debs/*.deb > metadata/SHA256SUMS
+            cp metadata/package-list.txt offline-debs/package-list.txt
+            cp metadata/SHA256SUMS offline-debs/SHA256SUMS
+            set +x
+            echo '```'
+            echo
+            echo "### Downloaded package count"
+            echo
+            echo '```text'
+            find offline-debs -maxdepth 1 -type f -name '*.deb' | wc -l
+            echo '```'
+          } 2>&1 | tee -a "$CI_LOG"
+          cp "$CI_LOG" "$CI_LATEST_LOG"
 
       - name: Discover likely ORAM testbench entry points
+        if: always()
+        shell: bash
         run: |
-          set -euxo pipefail
+          set -o pipefail
           {
-            echo '# Verilog project/testbench discovery'
             echo
-            echo '## Project files'
+            echo "## Verilog project/testbench discovery"
+            echo
+            echo "### Project files"
+            echo
+            echo '```text'
             find . -type f \( -name '*.prj' -o -name '*.xpr' -o -name 'Makefile' \) | sort
+            echo '```'
             echo
-            echo '## Testbench-looking Verilog files'
+            echo "### Testbench-looking Verilog files"
+            echo
+            echo '```text'
             find . -type f \( -iname '*test*.v' -o -iname '*tb*.v' \) | sort
+            echo '```'
             echo
-            echo '## Simulator/tool versions from runner'
-            iverilog -V | head -40 || true
+            echo "### Simulator/tool versions from runner"
+            echo
+            echo '```text'
+            iverilog -V | head -80 || true
             verilator --version || true
             yosys -V || true
-          } > metadata/oram-testbench-discovery.md
+            echo '```'
+          } 2>&1 | tee metadata/oram-testbench-discovery.md | tee -a "$CI_LOG"
+          cp "$CI_LOG" "$CI_LATEST_LOG"
 
       - name: Upload offline .deb bundle
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: oram-ubuntu22.04-debs
           path: offline-debs/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
 
       - name: Upload ORAM discovery metadata
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: oram-discovery-metadata
           path: metadata/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
+
+      - name: Finalize committed CI log
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo
+            echo "## Final status"
+            echo
+            echo "- Job status: ${{ job.status }}"
+            echo "- Finished UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+          } | tee -a "$CI_LOG"
+          cp "$CI_LOG" "$CI_LATEST_LOG"
+
+      - name: Commit CI logs back to repository
+        if: always()
+        shell: bash
+        run: |
+          set -euxo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ci-logs metadata/oram-testbench-discovery.md metadata/package-list.txt metadata/SHA256SUMS || true
+          if git diff --cached --quiet; then
+            echo "No CI logs to commit."
+            exit 0
+          fi
+          git commit -m "Add offline dependency CI logs for run ${GITHUB_RUN_ID}"
+          git push origin HEAD:${GITHUB_REF_NAME}
