@@ -759,3 +759,58 @@ error: the following files have local modifications:
     metadata/package-list.txt
 (use --cached to keep the file, or -f to force removal)
 + git add ci-logs metadata
++ git status --short
+M  ci-logs/latest-offline-deps.md
+D  ci-logs/offline-deps-run-26879282401-1.md
+AM ci-logs/offline-deps-run-26879374468-1.md
+D  metadata/SHA256SUMS
+D  metadata/downloaded-debs.txt
+A  metadata/install-offline-debs.sh
+M  metadata/oram-testbench-discovery.md
+A  metadata/package-list.raw.txt
+M  metadata/package-list.txt
+A  metadata/top-level-packages.txt
+ D offline-debs/Packages.gz
+ D offline-debs/SHA256SUMS
+ D offline-debs/package-list.txt
+?? offline-debs/adwaita-icon-theme-full_41.0-1ubuntu1_all.deb
+?? offline-debs/adwaita-icon-theme_41.0-1ubuntu1_all.deb
+?? offline-debs/berkeley-abc_1.01+20211229git48498af+dfsg-2_amd64.deb
+?? offline-debs/binutils-common_2.38-4ubuntu2.12_amd64.deb
+?? offline-debs/binutils-x86-64-linux-gnu_2.38-4ubuntu2.12_amd64.deb
+?? offline-debs/binutils_2.38-4ubuntu2.12_amd64.deb
+?? offline-debs/build-essential_12.9ubuntu3_amd64.deb
+?? offline-debs/bzip2_1.0.8-5build1_amd64.deb
+?? offline-debs/coq_8.15.0+dfsg-2_amd64.deb
+?? offline-debs/coreutils_8.32-4.1ubuntu1.3_amd64.deb
+?? offline-debs/cpp-11_11.4.0-1ubuntu1~22.04.3_amd64.deb
+?? offline-debs/cpp_4%3a11.2.0-1ubuntu1_amd64.deb
+?? offline-debs/install-offline-debs.sh
++ git diff --cached --stat
+ ci-logs/latest-offline-deps.md            |  650 ++++++--
+ ci-logs/offline-deps-run-26879282401-1.md |  287 ----
+ ci-logs/offline-deps-run-26879374468-1.md |  761 ++++++++++
+ metadata/SHA256SUMS                       |    0
+ metadata/downloaded-debs.txt              |    0
+ metadata/install-offline-debs.sh          |    4 +
+ metadata/oram-testbench-discovery.md      |   74 +
+ metadata/package-list.raw.txt             | 2321 +++++++++++++++++++++++++++++
+ metadata/package-list.txt                 |   53 +-
+ metadata/top-level-packages.txt           |    9 +
+ 10 files changed, 3724 insertions(+), 435 deletions(-)
++ git diff --cached --quiet
++ git commit -m 'Add offline dependency CI logs for run 26879374468'
+[oram_fpga_public 76b940a] Add offline dependency CI logs for run 26879374468
+ 10 files changed, 3724 insertions(+), 435 deletions(-)
+ delete mode 100644 ci-logs/offline-deps-run-26879282401-1.md
+ create mode 100644 ci-logs/offline-deps-run-26879374468-1.md
+ delete mode 100644 metadata/SHA256SUMS
+ delete mode 100644 metadata/downloaded-debs.txt
+ create mode 100755 metadata/install-offline-debs.sh
+ create mode 100644 metadata/package-list.raw.txt
+ create mode 100644 metadata/top-level-packages.txt
++ git push origin HEAD:oram_fpga_public
+To https://github.com/WostGit/oram
+   1d39c81..76b940a  HEAD -> oram_fpga_public
+```
+Commit/push exit code: 0
