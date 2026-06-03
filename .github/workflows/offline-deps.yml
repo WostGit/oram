@@ -32,6 +32,7 @@ jobs:
           # Core tools for compiling/simulating the ORAM Verilog repo offline.
           # build-essential brings gcc/g++/make/libc headers; iverilog/vvp handles
           # lightweight Verilog simulation; verilator/yosys are useful fallback tools.
+          # This comment is intentionally present to allow a push-trigger refresh.
           packages=(
             build-essential
             make
