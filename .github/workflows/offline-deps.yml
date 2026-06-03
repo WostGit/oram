@@ -23,67 +23,90 @@ jobs:
       - name: Check out ORAM repository
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Initialize committed CI log
+      - name: Build bundle, write logs, commit logs, then report status
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
+          set -o pipefail
+
           mkdir -p ci-logs offline-debs metadata
           LOG="ci-logs/offline-deps-run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.md"
           LATEST="ci-logs/latest-offline-deps.md"
-          {
-            echo "# Offline dependency CI log"
-            echo
-            echo "- Repository: ${GITHUB_REPOSITORY}"
-            echo "- Branch/ref: ${GITHUB_REF}"
-            echo "- Commit: ${GITHUB_SHA}"
-            echo "- Workflow: ${GITHUB_WORKFLOW}"
-            echo "- Run ID: ${GITHUB_RUN_ID}"
-            echo "- Run attempt: ${GITHUB_RUN_ATTEMPT}"
-            echo "- Runner OS: ${RUNNER_OS}"
-            echo "- Started UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-            echo
-          } | tee "$LOG"
-          cp "$LOG" "$LATEST"
-          echo "CI_LOG=$LOG" >> "$GITHUB_ENV"
-          echo "CI_LATEST_LOG=$LATEST" >> "$GITHUB_ENV"
+          STATUS=0
 
-      - name: Download apt dependencies as .deb files
-        shell: bash
-        run: |
-          set -o pipefail
-          {
-            echo
-            echo "## Download apt dependencies"
-            echo
-            echo '```text'
-            set -x
-            sudo apt-get update
+          log_line() {
+            printf '%s\n' "$*" | tee -a "$LOG"
+          }
 
-            packages=(
-              build-essential
-              make
-              python3
-              iverilog
-              verilator
-              yosys
-              gtkwave
-              coq
-              ocaml-findlib
-            )
+          run_logged() {
+            local title="$1"
+            shift
+            log_line ""
+            log_line "## ${title}"
+            log_line ""
+            log_line '```text'
+            "$@" 2>&1 | tee -a "$LOG"
+            local rc=${PIPESTATUS[0]}
+            log_line '```'
+            log_line ""
+            log_line "Exit code: ${rc}"
+            if [ "$rc" -ne 0 ] && [ "$STATUS" -eq 0 ]; then
+              STATUS="$rc"
+            fi
+            return 0
+          }
 
+          cat > "$LOG" <<EOF
+          # Offline dependency CI log
+
+          - Repository: ${GITHUB_REPOSITORY}
+          - Branch/ref: ${GITHUB_REF}
+          - Ref name: ${GITHUB_REF_NAME}
+          - Commit: ${GITHUB_SHA}
+          - Workflow: ${GITHUB_WORKFLOW}
+          - Run ID: ${GITHUB_RUN_ID}
+          - Run attempt: ${GITHUB_RUN_ATTEMPT}
+          - Runner OS: ${RUNNER_OS}
+          - Started UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')
+
+          EOF
+
+          run_logged "Repository state" bash -lc 'pwd; git status --short --branch; git remote -v; git rev-parse --abbrev-ref HEAD; git log -1 --oneline'
+
+          run_logged "APT update" bash -lc 'sudo apt-get update'
+
+          packages=(
+            build-essential
+            make
+            python3
+            iverilog
+            verilator
+            yosys
+            gtkwave
+            coq
+            ocaml-findlib
+          )
+
+          run_logged "Resolve apt package closure" bash -lc '
+            packages=(build-essential make python3 iverilog verilator yosys gtkwave coq ocaml-findlib)
             apt-cache depends --recurse --no-recommends \
               --no-suggests --no-conflicts --no-breaks \
               --no-replaces --no-enhances "${packages[@]}" \
-              | awk '/^  Depends: / {print $2} /^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}' \
-              | sed 's/<//; s/>//' \
+              | awk '\''/^  Depends: / {print $2} /^[[:alnum:]][[:alnum:].+:-]+$/ {print $1}'\'' \
+              | sed '\''s/<//; s/>//'\'' \
               | sort -u > metadata/package-list.txt
-
-            printf '%s\n' "${packages[@]}" >> metadata/package-list.txt
+            printf "%s\n" "${packages[@]}" >> metadata/package-list.txt
             sort -u -o metadata/package-list.txt metadata/package-list.txt
+            wc -l metadata/package-list.txt
+            head -100 metadata/package-list.txt
+          '
 
+          run_logged "Download .deb files" bash -lc '
+            mkdir -p offline-debs
             cd offline-debs
             xargs -a ../metadata/package-list.txt -r apt-get download
             cd ..
@@ -91,47 +114,80 @@ jobs:
             sha256sum offline-debs/*.deb > metadata/SHA256SUMS
             cp metadata/package-list.txt offline-debs/package-list.txt
             cp metadata/SHA256SUMS offline-debs/SHA256SUMS
-            set +x
-            echo '```'
-            echo
-            echo "### Downloaded package count"
-            echo
-            echo '```text'
-            find offline-debs -maxdepth 1 -type f -name '*.deb' | wc -l
-            echo '```'
-          } 2>&1 | tee -a "$CI_LOG"
-          cp "$CI_LOG" "$CI_LATEST_LOG"
+            find offline-debs -maxdepth 1 -type f -name "*.deb" | sort > metadata/downloaded-debs.txt
+            wc -l metadata/downloaded-debs.txt
+            du -sh offline-debs
+          '
 
-      - name: Discover likely ORAM testbench entry points
-        if: always()
-        shell: bash
-        run: |
-          set -o pipefail
           {
+            echo '# Verilog project/testbench discovery'
             echo
-            echo "## Verilog project/testbench discovery"
-            echo
-            echo "### Project files"
-            echo
+            echo '## Project files'
             echo '```text'
             find . -type f \( -name '*.prj' -o -name '*.xpr' -o -name 'Makefile' \) | sort
             echo '```'
             echo
-            echo "### Testbench-looking Verilog files"
-            echo
+            echo '## Testbench-looking Verilog files'
             echo '```text'
             find . -type f \( -iname '*test*.v' -o -iname '*tb*.v' \) | sort
             echo '```'
             echo
-            echo "### Simulator/tool versions from runner"
-            echo
+            echo '## Simulator/tool versions from runner'
             echo '```text'
             iverilog -V | head -80 || true
             verilator --version || true
             yosys -V || true
             echo '```'
-          } 2>&1 | tee metadata/oram-testbench-discovery.md | tee -a "$CI_LOG"
-          cp "$CI_LOG" "$CI_LATEST_LOG"
+          } > metadata/oram-testbench-discovery.md
+
+          log_line ""
+          log_line "## Verilog project/testbench discovery"
+          cat metadata/oram-testbench-discovery.md | tee -a "$LOG"
+
+          log_line ""
+          log_line "## Final status before commit"
+          log_line ""
+          log_line "- Captured status: ${STATUS}"
+          log_line "- Finished UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+
+          cp "$LOG" "$LATEST"
+
+          log_line ""
+          log_line "## Commit logs back to repository"
+          log_line ""
+          log_line '```text'
+          {
+            set -x
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git add ci-logs metadata offline-debs/package-list.txt offline-debs/SHA256SUMS offline-debs/Packages.gz
+            git status --short
+            git diff --cached --stat
+            if git diff --cached --quiet; then
+              echo "No committed-log changes found. Creating heartbeat file."
+              date -u '+%Y-%m-%dT%H:%M:%SZ' > ci-logs/last-run-heartbeat.txt
+              git add ci-logs/last-run-heartbeat.txt
+            fi
+            git commit -m "Add offline dependency CI logs for run ${GITHUB_RUN_ID}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          } 2>&1 | tee -a "$LOG"
+          COMMIT_RC=${PIPESTATUS[0]}
+          log_line '```'
+          log_line "Commit/push exit code: ${COMMIT_RC}"
+
+          # Try one more time to include the commit transcript itself in latest log.
+          cp "$LOG" "$LATEST"
+          if [ "$COMMIT_RC" -eq 0 ]; then
+            git add "$LOG" "$LATEST"
+            git commit -m "Update offline dependency commit transcript for run ${GITHUB_RUN_ID}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}" || true
+          fi
+
+          if [ "$COMMIT_RC" -ne 0 ]; then
+            exit "$COMMIT_RC"
+          fi
+          exit "$STATUS"
 
       - name: Upload offline .deb bundle
         if: always()
@@ -142,40 +198,13 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Upload ORAM discovery metadata
+      - name: Upload ORAM discovery metadata and logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: oram-discovery-metadata
-          path: metadata/
+          name: oram-discovery-metadata-and-logs
+          path: |
+            metadata/
+            ci-logs/
           if-no-files-found: warn
           retention-days: 14
-
-      - name: Finalize committed CI log
-        if: always()
-        shell: bash
-        run: |
-          set -euo pipefail
-          {
-            echo
-            echo "## Final status"
-            echo
-            echo "- Job status: ${{ job.status }}"
-            echo "- Finished UTC: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-          } | tee -a "$CI_LOG"
-          cp "$CI_LOG" "$CI_LATEST_LOG"
-
-      - name: Commit CI logs back to repository
-        if: always()
-        shell: bash
-        run: |
-          set -euxo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add ci-logs metadata/oram-testbench-discovery.md metadata/package-list.txt metadata/SHA256SUMS || true
-          if git diff --cached --quiet; then
-            echo "No CI logs to commit."
-            exit 0
-          fi
-          git commit -m "Add offline dependency CI logs for run ${GITHUB_RUN_ID}"
-          git push origin HEAD:${GITHUB_REF_NAME}
