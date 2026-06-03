@@ -246,3 +246,42 @@ From https://github.com/WostGit/oram
  * branch            oram_fpga_public -> FETCH_HEAD
 Already up to date.
 + git add ci-logs metadata offline-debs/package-list.txt offline-debs/SHA256SUMS offline-debs/Packages.gz
++ git status --short
+A  ci-logs/latest-offline-deps.md
+AM ci-logs/offline-deps-run-26879282401-1.md
+A  metadata/SHA256SUMS
+A  metadata/downloaded-debs.txt
+A  metadata/oram-testbench-discovery.md
+A  metadata/package-list.txt
+A  offline-debs/Packages.gz
+A  offline-debs/SHA256SUMS
+A  offline-debs/package-list.txt
++ git diff --cached --stat
+ ci-logs/latest-offline-deps.md            | 237 +++++++++++++++++++
+ ci-logs/offline-deps-run-26879282401-1.md | 248 ++++++++++++++++++++
+ metadata/SHA256SUMS                       |   0
+ metadata/downloaded-debs.txt              |   0
+ metadata/oram-testbench-discovery.md      |  38 +++
+ metadata/package-list.txt                 | 378 ++++++++++++++++++++++++++++++
+ offline-debs/Packages.gz                  | Bin 0 -> 20 bytes
+ offline-debs/SHA256SUMS                   |   0
+ offline-debs/package-list.txt             | 378 ++++++++++++++++++++++++++++++
+ 9 files changed, 1279 insertions(+)
++ git diff --cached --quiet
++ git commit -m 'Add offline dependency CI logs for run 26879282401'
+[oram_fpga_public 965d8e7] Add offline dependency CI logs for run 26879282401
+ 9 files changed, 1279 insertions(+)
+ create mode 100644 ci-logs/latest-offline-deps.md
+ create mode 100644 ci-logs/offline-deps-run-26879282401-1.md
+ create mode 100644 metadata/SHA256SUMS
+ create mode 100644 metadata/downloaded-debs.txt
+ create mode 100644 metadata/oram-testbench-discovery.md
+ create mode 100644 metadata/package-list.txt
+ create mode 100644 offline-debs/Packages.gz
+ create mode 100644 offline-debs/SHA256SUMS
+ create mode 100644 offline-debs/package-list.txt
++ git push origin HEAD:oram_fpga_public
+To https://github.com/WostGit/oram
+   c7f1b4b..965d8e7  HEAD -> oram_fpga_public
+```
+Commit/push exit code: 0
